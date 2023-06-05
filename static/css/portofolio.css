@@ -1,0 +1,311 @@
+/* #4e6e81 */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f0f0f0
+}
+
+hr {
+  margin: 5% auto 5% auto;
+  border-style: none;
+  border-top-style: dotted;
+  border-color:  #4e6e81;
+  border-width: 5px;
+  width: 5%;
+  opacity: 50%
+}
+
+
+.nav-link, #name_section, #email_section, .profile-headline, .about-title-page,
+.project-page-title, p, .skills-set-title, li, a, label, .contact-me-title, h1{
+  font-family: 'Montserrat', sans-serif;
+  color: #4e6e81;
+}
+
+.project-page-title {
+  margin: 10% auto 1% auto;
+}
+
+.project-page-sub-title {
+  margin-bottom: 5%
+}
+
+.about-headline-div {
+  position: relative;
+
+}
+
+.about-headline {
+  font-size: 1.8em;
+}
+
+.nav-link {
+  padding-bottom: 10px;
+}
+
+.nav-link:hover{
+  color: #4e6e81;
+  border-bottom: solid #4e6e81;
+}
+
+.header-divider {
+  position: absolute;
+  left: 10%;
+  top: 5%;
+  width: 76%;
+  border: solid #4e6e81;
+}
+
+li {
+  list-style: none;
+}
+
+@media (max-width: 886px) {
+  .header-divider {
+    top:12%
+  }
+}
+
+@media (max-width: 990px)  {
+
+  #name_section {
+    font-size: 50%;
+  }
+
+  .profile-picture{
+    margin-left: 15%;
+    margin-bottom: 15%
+  }
+
+  .projects-card {
+    margin: 5% auto;
+  }
+
+  .name-label {
+    margin-top: 10%
+  }
+
+  #name_section, #project-title {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 770px)  {
+  .header-divider {
+    top:12%
+  }
+
+  #name_section, #project-title {
+    font-size: 50%;
+  }
+
+  .name-label {
+    margin-top: 20%
+  }
+}
+
+.button_browse_project, .button_download_resume{
+  background-color: #4e6e81;
+  font-weight: bold;
+  color: white;
+  margin: 0.5% auto 2% 39%;
+}
+
+.button_download_resume_bottom {
+  background-color: #4e6e81;
+  font-weight: bold;
+  color: white;
+  font-size: 110%
+}
+
+.send-message-button {
+  background-color: #4e6e81;
+  font-weight: bold;
+  color: white;
+}
+
+.glasses {
+  display:inline;
+  width: 40%;
+  height: 40%;
+  margin: 11% auto 6.8% 29%;
+}
+
+.profile-name {
+  font-size: 300%;
+}
+
+.email_link:hover {
+  text-decoration: none;
+  color: #4e6e81
+}
+.email_link {
+  text-decoration: none;
+  color: #4e6e81
+}
+
+.profile-picture {
+  width: 50%;
+  height: 50%;
+}
+
+#about-page {
+  background-color: white;
+  margin: 85px auto;
+  padding: 9% 10%;
+}
+
+#projects-page {
+  padding-bottom: 5%;
+}
+
+.projects-card {
+  margin: auto 1%;
+}
+
+.social-media-button {
+  cursor: pointer;
+  border: none;
+  background-color: white;]
+}
+
+.button-link:hover {
+  text-decoration: none;
+}
+
+.nav-menu ul li a {
+  font-size: 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .nav-menu ul li a {
+    font-size: 1rem;
+  }
+}
+
+
+.profile-picture-div {
+  margin-left: 20%;
+  margin-top: 5%;
+}
+
+#resume_button {
+  padding-top: 10%
+}
+
+.projects-button {
+  width: 120px;
+  background-color: #4e6e81;
+  font-weight: bold;
+  color: white;
+}
+
+.contact {
+  background-color: #93BFCF;
+  border-radius: 10%;
+}
+
+.contact:hover{
+  border-bottom: none;
+}
+
+.skill-set-row {
+  margin-bottom: 3%
+}
+
+.skills-set-li {
+  display: inline-block;
+  padding: 0 3% 0 3%;
+}
+
+.skills-set-hr {
+  margin-top: 7%;
+}
+
+.card {
+  margin-top: 2%
+}
+
+.see_more_div {
+  margin-top: 3%;
+}
+
+.see_more_link {
+  padding-right: 0.5em;
+}
+
+.see_more_link:hover {
+  text-decoration: none;
+  color: #4e6e81;
+}
+
+.fa-circle, .fa-arrow-right {
+  color:#4e6e81;
+}
+
+.contact-section {
+  background-color: white;
+  margin: 85px auto;
+  padding: 9% 10%;
+}
+
+.contact-information {
+  margin-top: 5%;
+}
+
+.row-section {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.contact-me-icon{
+  margin-right: 5%
+}
+
+.social-media-icon-div {
+  margin-top: 5%;
+}
+/* -------------------------- */
+#project-title {
+  padding-top: 4%;
+  padding-bottom: 4%;
+  background-color: white;
+}
+
+.project-gif {
+  display: inline;
+  width: 40%;
+  height: auto;
+  margin: 4% auto 6.8% 29%;
+}
+
+.project-name {
+  font-size: 300%;
+}
+
+.home-back-button {
+  font-size: 150%;
+  position: absolute;
+  margin-top: 1%;
+  margin-left: 2%;
+}
+
+#project-details, #code-sample-section {
+  margin-left: 27%;
+  margin-right: 27%;
+}
+
+.line-numbers {
+  margin-top: 5%;
+  margin-bottom: 10%;
+  background-color: black;
+  color: white;
+}
+
+pre {
+  box-shadow: 10px 10px 5px gray;
+  border-radius: 2%;
+}
