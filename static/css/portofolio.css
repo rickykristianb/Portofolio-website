@@ -260,7 +260,8 @@ li {
 
 .contact-section {
   background-color: white;
-  margin: 85px auto;
+  margin-top: 150px;
+  margin-bottom:100px;
   padding: 9% 10%;
 }
 
@@ -326,6 +327,11 @@ pre {
 /* -------------------- */
 ul.text-center {
     padding: 0%;
+}
+
+/* Footer */
+#footer-section {
+    margin-bottom:50px;
 }
 
 /* Pagination */
