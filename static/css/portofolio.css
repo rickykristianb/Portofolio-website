@@ -26,7 +26,7 @@ hr {
 }
 
 .project-page-title {
-  margin: 10% auto 1% auto;
+  margin: 5% auto 2.5% auto;
 }
 
 .project-page-sub-title {
@@ -48,7 +48,7 @@ hr {
 
 .nav-link:hover{
   color: #4e6e81;
-  border-bottom: solid #4e6e81;
+  border-bottom: 2px solid #4e6e81;
 }
 
 .header-divider {
@@ -154,12 +154,12 @@ li {
 
 #about-page {
   background-color: white;
-  margin: 85px auto;
-  padding: 9% 10%;
+  margin-top: 85px;
+  padding: 3.5% 10%;
 }
 
 #projects-page {
-  padding-bottom: 5%;
+  padding: 2% 2%;
 }
 
 .projects-card {
@@ -192,7 +192,7 @@ li {
   margin-top: 5%;
 }
 
-#resume_button {
+#resume_button_top, #resume_button_bottom {
   padding-top: 10%
 }
 
@@ -213,7 +213,7 @@ li {
 }
 
 .skill-set-row {
-  margin-bottom: 3%
+  margin-bottom: 1%
 }
 
 .skills-set-li {
@@ -222,7 +222,16 @@ li {
 }
 
 .skills-set-hr {
-  margin-top: 7%;
+  margin-top: 5%;
+}
+
+.skills-set-list {
+    padding: 0.1% 10%;
+    line-height: 3;
+}
+
+.br-skills-set-li {
+    padding: 20%;
 }
 
 .card {
@@ -308,4 +317,10 @@ li {
 pre {
   box-shadow: 10px 10px 5px gray;
   border-radius: 2%;
+}
+
+
+/* -------------------- */
+ul.text-center {
+    padding: 0%;
 }

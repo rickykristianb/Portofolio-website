@@ -24,6 +24,9 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../static/css/portofolio.css">
+
+    <!-- JS -->
+    <script type="text/javascript" src=../static/js/chatbox.js></script>
   </head>
 
   <body>
@@ -41,7 +44,7 @@
               <a class="nav-link" href="#projects-page">Projects</a>
             </li>
             <li class="nav-item px-5">
-              <a class="nav-link contact" href="#contact-page">Hire Me</a>
+              <a class="nav-link contact" href="#contact-page">Contact Me</a>
             </li>
           </ul>
         </nav>
@@ -50,7 +53,7 @@
         <hr class="header-divider mx-auto"/>
       </div>
       <div class="logo-glasses">
-        <img class="glasses" src="../static/img/glasses with code.png"
+        <img class="glasses" src="../static/img/glasses with code.png">
       </div>
 
       <div id="name_section">
@@ -82,16 +85,15 @@
               </p>
             </div>
             <hr />
-            <p>
-              As a Python Developer, I am passionate about coding and eager to learn new
-skills and technologies. With a strong foundation in Python programming and basic
-understanding of software development principles, I am excited to apply my knowledge
-and contribute to innovative projects. I have experience working on small coding projects
-and I am adept at problem-solving and debugging. With excellent communication skills
- and a collaborative mindset, I am committed to working in a team environment and
-contributing to the success of the organization.
+            <p class="professional-highlight">
+              With project management experience transitioning to a software developer role, I am passionate about
+              coding and eager to learn new skills and technologies. Throughout my career, I have successfully managed
+              and executed multiple projects, ensuring their timely delivery and adherence to quality standards. With a
+              strong foundation in Python programming, SQL, and a deep understanding of software development
+              principles, I excel in problem-solving, debugging, and coordinating coding projects. I am well-equipped to
+              contribute to innovative projects and effectively lead and coordinate teams.
             </p>
-            <div id="resume_button" class="text-center">
+            <div id="resume_button_bottom" class="text-center">
               <button type="button" class="btn btn-outline-dark btn-lg button_download_resume mx-auto">Download Resume</button>
             </div>
           </div>
@@ -100,9 +102,9 @@ contributing to the success of the organization.
         <div class="row skill-set-row justify-content-center">
           <h2 class="skills-set-title">SKILLS SET</h2>
         </div>
-        <ul class="text-center">
-          <li class="skills-set-li">Python 3</li><i class="fa-regular fa-circle"></i>
-          <li class="skills-set-li">Data Analist</li><i class="fa-regular fa-circle"></i>
+        <div class="skills-set-list">
+          <ul class="text-center">
+          <li class="skills-set-li">Python</li><i class="fa-regular fa-circle"></i>
           <li class="skills-set-li">SQL</li><i class="fa-regular fa-circle"></i>
           <li class="skills-set-li">Flask</li><i class="fa-regular fa-circle"></i>
           <li class="skills-set-li">HTML</li><i class="fa-regular fa-circle"></i>
@@ -110,7 +112,9 @@ contributing to the success of the organization.
           <li class="skills-set-li">Git</li><i class="fa-regular fa-circle"></i>
           <li class="skills-set-li">Github</li><i class="fa-regular fa-circle"></i>
           <li class="skills-set-li">Project Management</li><i class="fa-regular fa-circle"></i>
+          <li class="skills-set-li">Inventory Management</li>
         </ul>
+        </div>
       </div>
     </section>
 
@@ -118,9 +122,6 @@ contributing to the success of the organization.
       <div class="row project-page-title justify-content-center">
         <h2 class="section-heading">PROJECTS</h2>
       </div>
-      <p class="text-center project-page-sub-title">
-        These are projects that accomplished using python
-      </p>
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="card col-lg-3 col-md-6 col-sm-6 projects-card" style="width: 18rem;">
@@ -173,22 +174,18 @@ contributing to the success of the organization.
           </div>
         </div>
         <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
-      </div>
-      <div class="see_more_div text-center">
-        <a href="#" class="see_more_link">See More</a>
-        <i class="fa-solid fa-arrow-right"></i>
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
       </div>
     </section>
 
@@ -224,7 +221,7 @@ contributing to the success of the organization.
               </button>
             </a>
           </div>
-          <div id="resume_button">
+          <div id="resume_button_top">
             <button type="button" class="btn btn-outline-dark btn-lg button_download_resume_bottom mx-auto">Download Resume</button>
           </div>
         </div>
@@ -250,9 +247,7 @@ contributing to the success of the organization.
         <p>
           © Ricky Kristian Butar Butar
         </p>
-        <p>
-          This website is built using Python 3, Flask, SQL, HTML, CSS, and Bootstrap.
-        </p>
       </div>
     </section>
+  </body>
 </html>
