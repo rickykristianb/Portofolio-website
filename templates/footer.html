@@ -1,0 +1,64 @@
+
+
+
+{% block content %}
+
+<section id="contact-page" class="contact-section">
+      <div class="row row-section">
+        <div class="contact-me-information col-lg-6">
+          <h3 class="contact-me-title">You can find me here:</h3>
+          <div class="contact-information">
+            <p>
+              <a class="button-link" href="tel:6282168897862" target="_blank"><i class="fa-solid fa-phone contact-me-icon"></i>+6282168897862</a>
+            </p>
+            <p>
+              <a class="button-link"href="https://api.whatsapp.com/send?phone=6282168897862" target="_blank"><i class="fa-brands fa-whatsapp contact-me-icon"></i>+6282168897862</a>
+            </p>
+            <p>
+              <a class="button-link" href="mailto:ricky.kristianb@gmail.com" target="_blank"><i class="fa-solid fa-envelope contact-me-icon"></i> ricky.kristianb@gmail.com</a>
+            </p>
+          </div>
+          <div class="social-media-icon-div">
+            <a class="button-link" href="https://github.com/rickykristianb" target="_blank">
+              <button class="social-media-button" type="button" name="button">
+                <i class="fa-brands fa-2xl fa-github"></i>
+              </button>
+            </a>
+            <a class="button-link" href="https://www.linkedin.com/in/rickykbb/" target="_blank">
+              <button class="social-media-button" type="button" name="button">
+                <i class="fa-brands fa-2xl fa-linkedin"></i>
+              </button>
+            </a>
+            <a class="button-link" href="https://www.instagram.com/rickykrisb/" target="_blank">
+              <button class="social-media-button" type="button" name="button">
+                <i class="fa-brands fa-2xl fa-instagram"></i>
+              </button>
+            </a>
+          </div>
+          <div id="resume_button_top">
+            <a href="{{ url_for('download_resume', filename='files/Resume-RickyKristianButarButar.pdf') }}" target="blank"> <button type="button" class="btn btn-outline-dark btn-lg button_download_resume_bottom mx-auto">Download Resume</button></a>
+          </div>
+        </div>
+        <div class="contact-me-form col-lg-6">
+          <form action="{{ url_for('homepage') }}" method="post">
+            {{ form.csrf_token }}
+            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field")}}<br>
+            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field") }}<br>
+            {{ form.message.label }}<br> {{ form.message(class_="textarea-form")}}<br>
+            {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="footer-section" class="footer">
+      <div class="footer text-center">
+        <p>
+          © Ricky Kristian Butar Butar
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
+
+{% endblock %}

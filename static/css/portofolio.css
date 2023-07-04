@@ -20,7 +20,7 @@ hr {
 
 
 .nav-link, #name_section, #email_section, .profile-headline, .about-title-page,
-.project-page-title, p, .skills-set-title, li, a, label, .contact-me-title, h1{
+.project-page-title, p, .skills-set-title, li, a, label, .contact-me-title, h1, .send_message_button{
   font-family: 'Montserrat', sans-serif;
   color: #4e6e81;
 }
@@ -115,12 +115,6 @@ li {
   font-weight: bold;
   color: white;
   font-size: 110%
-}
-
-.send-message-button {
-  background-color: #4e6e81;
-  font-weight: bold;
-  color: white;
 }
 
 .glasses {
@@ -350,3 +344,35 @@ ul.text-center {
     padding: .1em .25em;
     font-size: 150%;
 }
+
+/* submit button wtf form */
+.send_message_button {
+  background-color: #4e6e81;
+  color: white;
+  width: 30%;
+  height: 2.5rem;;
+  border: none;
+  margin-top:3%;
+}
+
+.textarea-form {
+    width:90%;
+    height:100px;
+}
+
+.form_field {
+    width:90%
+}
+
+/* flash message area */
+#flash-message {
+    position: absolute;
+    width: 300px;
+    height:11%;
+    z-index: 9999;
+    right:1%;
+    top:2%;
+    border: 2px ;
+    transition: transform 5s ease-in-out; /* Add CSS transition */
+}
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ricky Kristian Butar Butar</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img//favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Icon -->
+    <script src="https://kit.fontawesome.com/eedb7689a0.js" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/portofolio.css') }}">
+
+    <!-- JS -->
+    <script type="text/javascript" src=../static/js/chatbox.js></script>
+  </head>
+  <body>
+    <section id="nav-header" class="header-section">
+      <div class="container-fluid container-header">
+        <nav class="nav-menu">
+          <ul class="nav pt-5 h4 justify-content-center">
+            <li class="nav-item px-5">
+              <a class="nav-link active" href="#nav-header">Home</a>
+            </li>
+            <li class="nav-item px-5">
+              <a class="nav-link active" href="#about-page">About</a>
+            </li>
+            <li class="nav-item px-5">
+              <a class="nav-link" href="#projects-page">Projects</a>
+            </li>
+            <li class="nav-item px-5">
+              <a class="nav-link contact" href="#contact-page">Contact Me</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div id="flash-message" class="alert alert-dismissible fade-in {% if category == 'success' %}alert-success{% elif category == 'error' %}alert-danger{% endif %}">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <script>
+              // Function to handle close button click event
+              function dismissFlashMessage() {
+                var flashMessage = document.getElementById("flash-message");
+                flashMessage.classList.add("slide-out"); // Add slide-out class
+                setTimeout(function() {
+                  flashMessage.style.display = "none";
+                }, 300); // Delay hiding the message to match the transition duration
+              }
+
+              // Add event listener to close buttons
+              var closeButtons = document.getElementsByClassName("close");
+              for (var i = 0; i < closeButtons.length; i++) {
+                closeButtons[i].addEventListener("click", dismissFlashMessage);
+              }
+
+              // Add the show class to the flash message container after a delay
+              var flashMessage = document.getElementById("flash-message");
+              setTimeout(function() {
+                flashMessage.classList.add("show");
+              }, 100);
+            </script>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+
+      <div>
+        <hr class="header-divider mx-auto"/>
+      </div>
+      <div class="logo-glasses">
+        <img class="glasses" src="../static/img/glasses with code.png">
+      </div>
+
+      <div id="name_section">
+          <p class="text-center profile-name">Ricky Kristian Butar Butar</p>
+      </div>
+      <div id="email_section">
+          <p class="text-center email_section"><a href = "mailto: ricky.kristianb@gmail.com" class="email_link">ricky.kristianb@gmail.com</a></p>
+      </div>
+      <div id="project_button" class="text-center">
+        <a class="button-link" href="#projects-page">
+          <button type="button" class="btn btn-outline-dark btn-lg button_browse_project mx-auto">BROWSE PROJECTS</button>
+        </a>
+      </div>
+      </div>
+    </section>
