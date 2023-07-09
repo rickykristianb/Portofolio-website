@@ -46,7 +46,7 @@
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
           </form>
           {% else %}
-          <form action="{{ url_for('project_details') }}" method="post">
+          <form action="{{ url_for('project_details', id=project.id) }}" method="post">
             {{ form.csrf_token }}
             {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field")}}<br>
             {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field") }}<br>
