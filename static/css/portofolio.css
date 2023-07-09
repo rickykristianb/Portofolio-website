@@ -87,6 +87,10 @@ li {
   #name_section, #project-title {
     font-size: 50%;
   }
+
+  .contact-me-information {
+    margin-bottom: 10%
+  }
 }
 
 @media (max-width: 770px)  {
@@ -279,7 +283,10 @@ li {
 #project-title {
   padding-top: 4%;
   padding-bottom: 4%;
-  background-color: white;
+/*  background-color: white;*/
+  margin-top:5%;
+  margin-left: 27%;
+  margin-right: 27%;
 }
 
 .project-gif {
@@ -300,14 +307,19 @@ li {
   margin-left: 2%;
 }
 
-#project-details, #code-sample-section {
+#project-details, #code-sample-section, #add-project {
   margin-left: 27%;
   margin-right: 27%;
 }
 
+#add-project {
+    margin-top: 6%;
+    margin-bottom: 6%;
+}
+
 .line-numbers {
   margin-top: 5%;
-  margin-bottom: 10%;
+  margin-bottom: 25%;
   background-color: black;
   color: white;
 }
@@ -349,10 +361,10 @@ ul.text-center {
 .send_message_button {
   background-color: #4e6e81;
   color: white;
-  width: 30%;
   height: 2.5rem;;
   border: none;
   margin-top:3%;
+  font-size: 110%;
 }
 
 .textarea-form {
@@ -361,18 +373,26 @@ ul.text-center {
 }
 
 .form_field {
-    width:90%
+    width:90%;
+    border: 0.5px solid #4e6e81;
 }
 
 /* flash message area */
 #flash-message {
-    position: absolute;
+    position: fixed;
     width: 300px;
     height:11%;
     z-index: 9999;
     right:1%;
     top:2%;
     border: 2px ;
-    transition: transform 5s ease-in-out; /* Add CSS transition */
 }
 
+/* add - project page*/
+#add-project {
+    margin
+}
+
+.project_name_field {
+    width:100%;
+}

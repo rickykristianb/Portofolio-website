@@ -1,0 +1,20 @@
+
+{% block content %}
+{% include "header.html" %}
+    <section id="add-project" class="add-project-section">
+    <div class="container-fluid">
+        <h1>Add Project</h1>
+        <form method="post" action= "{{ url_for('add_projects') }}" enctype=multipart/form-data>
+            {{ form.csrf_token }}
+            {{ form.project_name.label }}<br>{{ form.project_name(class_="project_name_field") }}<br><br>
+            {{ form.project_detail.label }}<br>{{ form.project_detail}}<br>
+            {{ form.project_code_overview.label }}<br>{{ form.project_code_overview }}<br>
+            {{ ckeditor.load() }}
+            {{ form.project_image.label }}<br>{{ form.project_image}}<br><br>
+            {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
+        </form>
+    </div>
+    </section>
+  </body>
+</html>
+{% endblock %}

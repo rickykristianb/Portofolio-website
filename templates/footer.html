@@ -1,6 +1,3 @@
-
-
-
 {% block content %}
 
 <section id="contact-page" class="contact-section">
@@ -40,13 +37,23 @@
           </div>
         </div>
         <div class="contact-me-form col-lg-6">
+          {% if form_for == "homepage" %}
           <form action="{{ url_for('homepage') }}" method="post">
             {{ form.csrf_token }}
             {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field")}}<br>
             {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field") }}<br>
-            {{ form.message.label }}<br> {{ form.message(class_="textarea-form")}}<br>
+            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field")}}<br>
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
           </form>
+          {% else %}
+          <form action="{{ url_for('project_details') }}" method="post">
+            {{ form.csrf_token }}
+            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field")}}<br>
+            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field") }}<br>
+            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field")}}<br>
+            {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
+          </form>
+          {% endif %}
         </div>
       </div>
     </section>

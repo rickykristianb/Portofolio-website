@@ -25,8 +25,6 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/portofolio.css') }}">
 
-    <!-- JS -->
-    <script type="text/javascript" src=../static/js/chatbox.js></script>
   </head>
   <body>
     <section id="nav-header" class="header-section">
@@ -34,20 +32,21 @@
         <nav class="nav-menu">
           <ul class="nav pt-5 h4 justify-content-center">
             <li class="nav-item px-5">
-              <a class="nav-link active" href="#nav-header">Home</a>
+              <a class="nav-link active" href="{{ url_for('homepage') }}#nav-header">Home</a>
             </li>
             <li class="nav-item px-5">
-              <a class="nav-link active" href="#about-page">About</a>
+              <a class="nav-link active" href="{{ url_for('homepage') }}#about-page">About</a>
             </li>
             <li class="nav-item px-5">
-              <a class="nav-link" href="#projects-page">Projects</a>
+              <a class="nav-link" href="{{ url_for('homepage') }}#projects-page">Projects</a>
             </li>
             <li class="nav-item px-5">
-              <a class="nav-link contact" href="#contact-page">Contact Me</a>
+              <a class="nav-link contact" href="{{ url_for('homepage') }}#contact-page">Contact Me</a>
             </li>
           </ul>
         </nav>
       </div>
+
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           {% for category, message in messages %}
@@ -57,50 +56,9 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <script>
-              // Function to handle close button click event
-              function dismissFlashMessage() {
-                var flashMessage = document.getElementById("flash-message");
-                flashMessage.classList.add("slide-out"); // Add slide-out class
-                setTimeout(function() {
-                  flashMessage.style.display = "none";
-                }, 300); // Delay hiding the message to match the transition duration
-              }
-
-              // Add event listener to close buttons
-              var closeButtons = document.getElementsByClassName("close");
-              for (var i = 0; i < closeButtons.length; i++) {
-                closeButtons[i].addEventListener("click", dismissFlashMessage);
-              }
-
-              // Add the show class to the flash message container after a delay
-              var flashMessage = document.getElementById("flash-message");
-              setTimeout(function() {
-                flashMessage.classList.add("show");
-              }, 100);
-            </script>
           {% endfor %}
         {% endif %}
       {% endwith %}
-
-
       <div>
         <hr class="header-divider mx-auto"/>
       </div>
-      <div class="logo-glasses">
-        <img class="glasses" src="../static/img/glasses with code.png">
-      </div>
-
-      <div id="name_section">
-          <p class="text-center profile-name">Ricky Kristian Butar Butar</p>
-      </div>
-      <div id="email_section">
-          <p class="text-center email_section"><a href = "mailto: ricky.kristianb@gmail.com" class="email_link">ricky.kristianb@gmail.com</a></p>
-      </div>
-      <div id="project_button" class="text-center">
-        <a class="button-link" href="#projects-page">
-          <button type="button" class="btn btn-outline-dark btn-lg button_browse_project mx-auto">BROWSE PROJECTS</button>
-        </a>
-      </div>
-      </div>
-    </section>
