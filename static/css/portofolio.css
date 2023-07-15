@@ -422,3 +422,8 @@ ul.text-center {
 .projects-card {
     height: 450px;
 }
+
+
+.pagination {
+  margin: 0%;
+}

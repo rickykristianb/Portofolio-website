@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#show-flash").click(function() {
+        $.ajax({
+          url: '/flash_message',
+          type: 'POST',
+          success: function(data) {
+            $("#flash-message").text(data.message);
+            $("#flash-message").fadeIn(500).delay(3000).fadeOut(500);
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <button id="show-flash">Show Flash Message</button>
+  <div id="flash-message" style="display: none;"></div>
+</body>
+</html>
+
+success:function(data)
+        {
+          var category = data.category
+          var message = data.message
+
+          if (category === 'success'){
+            $("#flash-message").text(message);
+            $("#flash-message").addClass("success").fadeIn(500).delay(3000).fadeOut(500);
+            $('#send_message_form')[0].reset();
+          } else if (category === "error") {
+            $("#flash-message").text(message);
+            $("#flash-message").addClass("error").fadeIn(500).delay(3000).fadeOut(500);
+        }

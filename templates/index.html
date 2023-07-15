@@ -69,27 +69,52 @@
     </section>
 
     <section id="projects-page">
-      <div class="row project-page-title justify-content-center">
-        <h2 class="section-heading">PROJECTS</h2>
-      </div>
-      {{ pagination.info }}
-      {{ pagination.links }}
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-        {% for project in projects %}
-          <div class="card col-lg-3 col-md-6 col-sm-6 projects-card" style="width: 18rem;">
-            <img class="card-img-top" src="data:image/jpeg;base64,{{ project.project_img }}" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{ project.project_name }}</h5>
-              <p class="card-text">{{ project.project_overview[:130] }} . . . . . </p>
-              <a href="{{url_for('project_details', id=project.id)}}" class="btn btn-primary btn-outline-dark projects-button" target="_blank">See Details</a>
-            </div>
-          </div>
-        {% endfor %}
+        <div class="row project-page-title justify-content-center">
+            <h2 class="section-heading">PROJECTS</h2>
         </div>
-      </div>
-      {{ pagination.links }}
+        <div class="load_pagination">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    {% for project in projects %}
+                    <div class="card col-lg-3 col-md-6 col-sm-6 projects-card" style="width: 18rem;">
+                        <img class="card-img-top" src="data:image/jpeg;base64,{{ project.project_img }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.project_name }}</h5>
+                            <p class="card-text">{{ project.project_overview[:130] }} . . . . . </p>
+                            <a href="{{url_for('project_details', id=project.id)}}" class="btn btn-primary btn-outline-dark projects-button" target="_blank">See Details</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="pagination-container d-flex justify-content-center">
+                    {{ pagination.links }}
+                </div>
+            </div>
+        </div>
     </section>
+    <script>
+$(document).ready(function() {
+  $('.load_pagination a').on('click', function(e) {
+    e.preventDefault();
+    var url = $(this).attr('href');
+    loadProjects(url);
+  });
+
+  function loadProjects(url) {
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'html',
+      success: function(response) {
+        $('.load_pagination').html(response);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
+});
+    </script>
 
     {% include "footer.html" %}
    {% endblock %}

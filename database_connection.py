@@ -10,6 +10,7 @@ load_dotenv()
 
 
 def save_add_project_detail(**kwargs):
+    """To save project to database"""
     connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
                                  password=os.getenv("DATABASE_PASSWORD"),
                                  host=os.getenv("HOST"),
@@ -32,6 +33,7 @@ def save_add_project_detail(**kwargs):
 
 
 def project_list():
+    """To get all project on the database"""
     connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
                                  password=os.getenv("DATABASE_PASSWORD"),
                                  host=os.getenv("HOST"),
@@ -50,6 +52,7 @@ def project_list():
 
 
 def retrieve_project(id):
+    """To retrieve project from database based on id"""
     connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
                                  password=os.getenv("DATABASE_PASSWORD"),
                                  host=os.getenv("HOST"),
@@ -66,6 +69,7 @@ def retrieve_project(id):
 
 
 def count_projects():
+    """To count number of project in the database"""
     connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
                                  password=os.getenv("DATABASE_PASSWORD"),
                                  host=os.getenv("HOST"),

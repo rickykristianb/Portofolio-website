@@ -1,5 +1,5 @@
 import pymysql
-from flask import Flask, render_template, redirect, url_for, request, flash, send_from_directory, Response
+from flask import Flask, render_template, redirect, url_for, request, flash, send_from_directory, Response, jsonify
 from wtforms import StringField, SubmitField, validators, IntegerField, FloatField, TextAreaField
 from wtforms.fields import EmailField
 from flask_bootstrap import Bootstrap
@@ -15,8 +15,7 @@ import database_connection as db
 import lxml.html
 import lxml.html.clean
 from base64 import b64encode
-from flask import Blueprint
-from flask_paginate import Pagination, get_page_parameter
+from flask_paginate import Pagination, get_page_args
 
 
 app = Flask(__name__)
@@ -62,6 +61,13 @@ class AddProject(FlaskForm):
 
 
 def send_email(name, email, message):
+    error_message = {
+        "message": "Upss... Your email has not been sent, please send again\n\n:(",
+        "category": "error"}
+    success_message = {
+        "message": "Your message has been sent to ricky.kristianb@gmail.com.\nI will reply shortly",
+        "category": "success"
+    }
     with SMTP(host="smtp.gmail.com", port=587) as connection:
         connection.starttls()
         try:
@@ -73,16 +79,22 @@ def send_email(name, email, message):
                     f"FROM: {name}\nEMAIL: {email}\nMESSAGE: \n\n{message}"
             )
         except SMTPSenderRefused:
-            flash("Upss... Your email has not been sent, please send again\n\n:(", "error")
+            flash(error_message["message"], error_message["category"])
+            response = error_message
         except SMTPAuthenticationError:
-            flash("Upss... Your email has not been sent, please send again\n\n:(", "error")
+            flash(error_message["message"], error_message["category"])
+            response = error_message
         except SMTPResponseException:
-            flash("Upss... Your email has not been sent, please send again\n\n:(", "error")
+            flash(error_message["message"], error_message["category"])
+            response = error_message
         else:
-            flash("Your message has been sent to ricky.kristianb@gmail.com.\nI will reply shortly", "success")
+            flash(success_message["message"], success_message["category"])
+            response = success_message
+    return response
 
 
 def clean_projects():
+    """To remove all html tag from all project"""
     all_projects = db.project_list()
     for project in all_projects:
         for key, value in project.items():
@@ -97,6 +109,7 @@ def clean_projects():
 
 
 def clean_one_project(id):
+    """To remove all html tag from 1 project"""
     project = db.retrieve_project(id)
     for key, value in project.items():
         if isinstance(value, str):
@@ -109,45 +122,50 @@ def clean_one_project(id):
     return project
 
 
-def pagination():
-    search = False
-    all_projects = clean_projects()
-    if all_projects:
-        search = True
-    total_projects = db.count_projects()
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    pagination = Pagination(page=page, total=total_projects, search=search, record_name="projects")
-    return pagination
-
-
 # TODO: make this send email method to send email and clear form without refresh the page (ASYNC)
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    pagination()
+    N = 0
+    """Homepage to show profile. Include pagination for project list"""
     all_projects = clean_projects()
     message_form = SendMessage()
     form_for = "homepage"
-    if request.method == "POST" and message_form.validate_on_submit():
-        message = message_form.message.data
-        email = message_form.company_email.data
-        name = message_form.company_name.data
-        send_email(name=name, email=email, message=message)
-        # return redirect(url_for("homepage"))
-        return redirect("/#contact-page")
-    return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects, pagination=pagination)
+    if request.method == "POST":
+        message = request.form.get("message")
+        email = request.form.get("company_email")
+        name = request.form.get("company_name")
+        send_email_response = send_email(name=name, email=email, message=message)
+        return jsonify(send_email_response)
+
+    # pagination
+    page, per_page, offset = get_page_args(page_parameter="page", per_page_parameter="per_page", default_per_page=3)
+    total = len(all_projects)
+    per_page = 3
+    offset = (page - 1) * per_page
+    pagination_projects = all_projects[offset:offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework="bootstrap4")
+
+    return render_template("index.html",
+                           form=message_form,
+                           form_for=form_for,
+                           projects=pagination_projects,
+                           pagination=pagination)
 
 
 @app.route("/download-resume/<path:filename>")
 def download_resume(filename):
+    """To Download Resume"""
     return send_from_directory('static', filename)
 
 
 def allowed_file(filename):
+    """To restrict which file types can be accepted"""
     return "." in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSTION
 
 
 @app.route("/add-projects", methods=["GET", "POST"])
 def add_projects():
+    """To add project to database"""
     add_projects_form = AddProject()
     if request.method == "POST":
         if "project_image" not in request.files:
@@ -179,6 +197,7 @@ def add_projects():
 
 @app.route("/project-details/<int:id>", methods=["GET", "POST"])
 def project_details(id):
+    """Get the details of the projects"""
     try:
         project = clean_one_project(id)
     except pymysql.Error as err:
@@ -187,15 +206,25 @@ def project_details(id):
         flash(f"There is no project yet in database. Add first!!", "error")
         return redirect(url_for("add_projects"))
     message_form = SendMessage()
-    form_for = "project_details"
-    if request.method == "POST" and message_form.validate_on_submit():
-        message = message_form.message.data
-        email = message_form.company_email.data
-        name = message_form.company_name.data
-        send_email(message=message, email=email, name=name)
-        return redirect(url_for("project_details") + "#contact-page")
+    form_for = "project_details"  # To differentiate message from in project details page with other page
+    if request.method == "POST":
+        message = request.form.get("message")
+        email = request.form.get("company_email")
+        name = request.form.get("company_name")
+        send_email_response = send_email(name=name, email=email, message=message)
+        return jsonify(send_email_response)
+
     return render_template("project-details.html", form=message_form, form_for=form_for, project=project, id=id)
 
+
+@app.route('/asd')
+def index():
+    return render_template('pagination-sample.html')
+
+@app.route('/flash_message', methods=['POST'])
+def flash_message():
+    flash('This is a flash message!')
+    return jsonify({'message': 'Flash message sent'})
 
 if __name__ == "__main__":
     app.run(debug=True)

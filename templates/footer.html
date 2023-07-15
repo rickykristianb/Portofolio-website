@@ -38,25 +38,98 @@
         </div>
         <div class="contact-me-form col-lg-6">
           {% if form_for == "homepage" %}
-          <form action="{{ url_for('homepage') }}" method="post">
+          <form method="post" id="send_message_form">
             {{ form.csrf_token }}
-            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field")}}<br>
-            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field") }}<br>
-            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field")}}<br>
+            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field", id="company_name_field")}}<br>
+            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field", id="company_email_field") }}<br>
+            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field", id="message_field")}}<br>
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
           </form>
           {% else %}
-          <form action="{{ url_for('project_details', id=project.id) }}" method="post">
+          <form method="post" id="send_message_form_project_details">
             {{ form.csrf_token }}
-            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field")}}<br>
-            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field") }}<br>
-            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field")}}<br>
+            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field", id="company_name_field2" )}}<br>
+            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field", id="company_email_field2") }}<br>
+            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field", id="message_field2")}}<br>
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
           </form>
           {% endif %}
         </div>
       </div>
+
     </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $(document).on('submit','#send_message_form', function(e)
+                   {
+      console.log('hello');
+      e.preventDefault();
+      var formData = {
+        company_name: $("#company_name_field").val(),
+        company_email: $("#company_email_field").val(),
+        message: $("#message_field").val()
+      };
+      $.ajax({
+        type:'POST',
+        url:'/',
+        data: formData,
+        success:function(data)
+        {
+          var category = data.category;
+          var message = data.message;
+
+          $("#flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+          $("#flash-message").removeClass("alert-success alert-danger");
+
+          if (category === "success") {
+          $('#send_message_form')[0].reset();
+            $("#flash-message").addClass("alert-success");
+          } else if (category === "error") {
+            $("#flash-message").addClass("alert-danger");
+          }
+
+          $("#flash-message").fadeIn(500).delay(3000).fadeOut(500);
+        }
+      })
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).on('submit','#send_message_form_project_details', function(e)
+                   {
+      console.log('hello');
+      e.preventDefault();
+      var formData = {
+        company_name: $("#company_name_field2").val(),
+        company_email: $("#company_email_field2").val(),
+        message: $("#message_field2").val()
+      };
+      $.ajax({
+        type:'POST',
+        url:'/',
+        data: formData,
+        success:function(data)
+        {
+          var category = data.category;
+          var message = data.message;
+
+          $("#flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+          $("#flash-message").removeClass("alert-success alert-danger");
+
+          if (category === "success") {
+          $('#send_message_form_project_details')[0].reset();
+            $("#flash-message").addClass("alert-success");
+          } else if (category === "error") {
+            $("#flash-message").addClass("alert-danger");
+          }
+
+          $("#flash-message").fadeIn(500).delay(3000).fadeOut(500);
+        }
+      })
+    });
+  </script>
 
     <section id="footer-section" class="footer">
       <div class="footer text-center">
