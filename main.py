@@ -53,8 +53,8 @@ class SendMessage(FlaskForm):
 
 
 class AddProject(FlaskForm):
-    project_name = StringField(validators=[DataRequired()])
-    project_detail = CKEditorField(validators=[DataRequired()])
+    project_name = StringField(label="Project Name", validators=[DataRequired()])
+    project_detail = CKEditorField(label="Project Detail", validators=[DataRequired()])
     project_code_overview = CKEditorField(label="Code Overview", validators=[DataRequired()])
     project_image = FileField(label="Project Image")
     submit = SubmitField(label="Add Projects")
@@ -170,12 +170,23 @@ def add_projects():
     add_projects_form = AddProject()
     if request.method == "POST":
         if "project_image" not in request.files:
-            flash("No file part", "error")
-            return redirect(request.url)
+            error_message = {
+                "message": "No file chosen",
+                "category": "error"
+            }
+            flash(error_message["message"], error_message["category"])
+            response = error_message
+            return response
         file = request.files["project_image"]
         if file.filename == "":
-            flash("No selected File", "error")
-            return redirect(request.url)
+            error_message = {
+                "message": "No selected File",
+                "category": "error"
+            }
+            flash(error_message["message"], error_message["category"])
+            response = error_message
+            return response
+
         if file and allowed_file(file.filename):
             image_data = file.read()
             details = {
@@ -187,14 +198,29 @@ def add_projects():
             try:
                 db.save_add_project_detail(details=details)
             except pymysql.Error as err:
-                flash(f"Database Error: {str(err)}", "error")
-                print("GAGAL")
+                error_message = {
+                    "message": f"Database Error: {str(err)}",
+                    "category": "error"
+                }
+                flash(error_message["message"], error_message["category"])
+                response = error_message
+                return response
             else:
-                print("SUKSES")
-                flash("Add project is success", "success")
-            return redirect(url_for("add_projects"))
+                success_message = {
+                    "message": "Add project is success",
+                    "category": "success"
+                }
+                flash(success_message["message"], success_message["category"])
+                response = success_message
+                return jsonify(response)
         else:
-            flash("File type is not supported", "error")
+            error_message = {
+                "message": "File type is not supported",
+                "category": "error"
+            }
+            flash(error_message["message"], error_message["category"])
+            response = error_message
+            return jsonify(response)
     return render_template("add-projects.html", form=add_projects_form)
 
 
@@ -224,10 +250,6 @@ def project_details(id):
 def index():
     return render_template('pagination-sample.html')
 
-@app.route('/flash_message', methods=['POST'])
-def flash_message():
-    flash('This is a flash message!')
-    return jsonify({'message': 'Flash message sent'})
 
 if __name__ == "__main__":
     app.run(debug=True)

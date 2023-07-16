@@ -27,12 +27,13 @@
 
   </head>
   <body>
-    <section id="nav-header" class="header-section">
+  <section id="homepage">
+    <header id="nav-header" class="header-section">
       <div class="container-fluid container-header">
         <nav class="nav-menu">
           <ul class="nav pt-5 h4 justify-content-center">
             <li class="nav-item px-5">
-              <a class="nav-link active" href="{{ url_for('homepage') }}#nav-header">Home</a>
+              <a class="nav-link active" href="{{ url_for('homepage') }}#homepage">Home</a>
             </li>
             <li class="nav-item px-5">
               <a class="nav-link active" href="{{ url_for('homepage') }}#about-page">About</a>
@@ -46,7 +47,7 @@
           </ul>
         </nav>
       </div>
-      <div id="flash-message" class="alert alert-dismissible fade-in" style="display: none;">
+      <div class="flash-message alert alert-dismissible fade-in" style="display: none;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
         </button>
@@ -54,3 +55,45 @@
       <div>
         <hr class="header-divider mx-auto"/>
       </div>
+    </header>
+  </section>
+  <script>
+        window.addEventListener("scroll", function() {
+        var mainHeader = document.getElementById("nav-header");
+        var newHeader = document.getElementById("new-nav-header");
+
+        if (window.scrollY > 100) {
+          mainHeader.style.display = "none";
+          newHeader.style.display = "block";
+        } else {
+          mainHeader.style.display = "block";
+          newHeader.style.display = "none";
+        }
+      });
+      </script>
+  <header id="new-nav-header" class="header-section">
+      <div class="container-fluid container-header ">
+        <nav class="new-nav-menu ">
+          <ul class="nav pt-2 justify-content-center">
+            <li class="nav-item px-1 pt-4">
+              <a class="nav-link active" href="{{ url_for('homepage') }}#homepage"><i class="fa-solid fa-house fa-xl"></i></i><span class="hover-text">Home</span></a>
+            </li>
+            <li class="nav-item px-1 pt-4">
+              <a class="nav-link active" href="{{ url_for('homepage') }}#about-page"><i class="fa-solid fa-user fa-xl"></i><span class="hover-text">Profile</span></a>
+            </li>
+            <li class="nav-item px-1 pt-4">
+              <a class="nav-link" href="{{ url_for('homepage') }}#projects-page"><i class="fa-sharp fa-solid fa-diagram-project fa-xl"></i><span class="hover-text">Projects</span></a>
+            </li>
+            <li class="nav-item px-1 pt-4">
+              <a class="nav-link " href="{{ url_for('homepage') }}#contact-page"><i class="fa-solid fa-address-card fa-xl"></i><span class="hover-text">Contact</span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="flash-message alert alert-dismissible fade-in" style="display: none;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+    </header>

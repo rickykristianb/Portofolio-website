@@ -44,11 +44,14 @@ hr {
 
 .nav-link {
   padding-bottom: 10px;
+  text-decoration: none;
 }
 
 .nav-link:hover{
-  color: #4e6e81;
-  border-bottom: 2px solid #4e6e81;
+    background-color: #93BFCF;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #4e6e81;
 }
 
 .header-divider {
@@ -61,6 +64,13 @@ hr {
 
 li {
   list-style: none;
+}
+
+@media only screen and (max-width: 400px) {
+    .item-in-row {
+        width:175%;
+        padding-left:100%;
+}
 }
 
 @media (max-width: 886px) {
@@ -174,13 +184,15 @@ li {
 .nav-menu ul li a {
   font-size: 1.4rem;
 }
+.new-nav-menu ul li a {
+  font-size: 0.95rem;
+}
 
 @media (max-width: 768px) {
   .nav-menu ul li a {
     font-size: 1rem;
   }
 }
-
 
 .profile-picture-div {
   margin-left: 20%;
@@ -201,7 +213,7 @@ li {
 
 .contact {
   background-color: #93BFCF;
-  border-radius: 10%;
+  border-radius: 50px; /* Use a higher value for a more rounded effect */
 }
 
 .contact:hover{
@@ -231,8 +243,7 @@ li {
 }
 
 .card {
-  margin-top: 6%;
-  margin-bottom:4%
+  margin-top: 2%;
   width:100%;
 }
 
@@ -266,11 +277,6 @@ li {
 
 .contact-information {
   margin-top: 5%;
-}
-
-.row-section {
-  margin-left: 5%;
-  margin-right: 5%;
 }
 
 .contact-me-icon{
@@ -378,7 +384,7 @@ ul.text-center {
 }
 
 /* flash message area */
-#flash-message {
+.flash-message {
     position: fixed;
     width: 300px;
     height:11%;
@@ -463,4 +469,36 @@ ul.text-center {
 .item-in-row {
     width:175%;
     padding-left:25%;
+}
+
+.items-box {
+    margin-bottom:4%;
+}
+
+#new-nav-header {
+  display: none;
+  position: fixed;
+  top: 25%;
+  right:2%;
+  background-color: rgba(128,128,128, 0.2);
+  border-radius:550px;
+  z-index: 999;
+  width:45px;
+  height:300px;
+}
+
+.hover-text {
+  display: none; /* Initially hide the text */
+}
+
+.nav-link:hover .hover-text{
+  display: inline; /* Display the text on link hover */
+}
+
+.fa-address-card:hover i{
+    display:none
+}
+
+.nav-link:hover{
+  text-align: center;
 }

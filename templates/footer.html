@@ -81,17 +81,17 @@
           var category = data.category;
           var message = data.message;
 
-          $("#flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
-          $("#flash-message").removeClass("alert-success alert-danger");
+          $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+          $(".flash-message").removeClass("alert-success alert-danger");
 
           if (category === "success") {
           $('#send_message_form')[0].reset();
-            $("#flash-message").addClass("alert-success");
+            $(".flash-message").addClass("alert-success");
           } else if (category === "error") {
-            $("#flash-message").addClass("alert-danger");
+            $(".flash-message").addClass("alert-danger");
           }
 
-          $("#flash-message").fadeIn(500).delay(3000).fadeOut(500);
+          $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
         }
       })
     });
@@ -115,17 +115,17 @@
           var category = data.category;
           var message = data.message;
 
-          $("#flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
-          $("#flash-message").removeClass("alert-success alert-danger");
+          $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+          $(".flash-message").removeClass("alert-success alert-danger");
 
           if (category === "success") {
           $('#send_message_form_project_details')[0].reset();
-            $("#flash-message").addClass("alert-success");
+            $(".flash-message").addClass("alert-success");
           } else if (category === "error") {
-            $("#flash-message").addClass("alert-danger");
+            $(".flash-message").addClass("alert-danger");
           }
 
-          $("#flash-message").fadeIn(500).delay(3000).fadeOut(500);
+          $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
         }
       })
     });

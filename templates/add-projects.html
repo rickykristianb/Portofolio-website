@@ -3,17 +3,73 @@
     <section id="add-project" class="add-project-section">
     <div class="container-fluid">
         <h1>Add Project</h1>
-        <form method="post" action= "{{ url_for('add_projects') }}" enctype=multipart/form-data>
+        <form method="post" id="add_project_form" enctype=multipart/form-data>
             {{ form.csrf_token }}
-            {{ form.project_name.label }}<br>{{ form.project_name(class_="project_name_field") }}<br><br>
-            {{ form.project_detail.label }}<br>{{ form.project_detail}}<br>
-            {{ form.project_code_overview.label }}<br>{{ form.project_code_overview }}<br>
+            {{ form.project_name.label }}<br>{{ form.project_name(class_="project_name_field", id="project_name_field") }}<br><br>
+            {{ form.project_detail.label }}<br>{{ form.project_detail(id="project_detail_field")}}<br>
+            {{ form.project_code_overview.label }}<br>{{ form.project_code_overview(id="project_code_overview_field") }}<br>
             {{ ckeditor.load() }}
-            {{ form.project_image.label }}<br>{{ form.project_image}}<br><br>
+            {{ form.project_image.label }}<br>{{ form.project_image(id="project_image_field")}}<br><br>
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
         </form>
     </div>
     </section>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $(document).on('submit','#add_project_form', function(e)
+                   {
+      console.log('hello');
+      e.preventDefault();
+
+      var formData = new FormData();
+
+      formData.append('project_name', $("#project_name_field").val());
+      formData.append('project_detail', $("#project_detail_field").val());
+      formData.append('project_code_overview', $("#project_code_overview_field").val());
+
+      var projectImageFile = $("#project_image_field")[0].files[0];
+
+        if (projectImageFile) {
+            // Append the file to the FormData object
+            formData.append('project_image', projectImageFile);
+          }
+
+      $.ajax({
+        type:'POST',
+        url:'/add-projects',
+        data: formData,
+        processData: false, // Important! Prevents jQuery from automatically processing the data
+        contentType: false,
+        success:function(data)
+        {
+          var category = data.category;
+          var message = data.message;
+
+          $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+          $(".flash-message").removeClass("alert-success alert-danger");
+
+          if (category === "success") {
+            $('#add_project_form')[0].reset();
+            var editor_project_detail_field = CKEDITOR.instances.project_detail_field;
+            var editor_project_code_overview_field = CKEDITOR.instances.project_code_overview_field;
+            editor_project_detail_field.setData('');
+            editor_project_detail_field.resetDirty();
+            editor_project_code_overview_field.setData('');
+            editor_project_code_overview_field.resetDirty();
+
+
+            $(".flash-message").addClass("alert-success");
+          } else if (category === "error") {
+            $(".flash-message").addClass("alert-danger");
+          }
+
+          $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
+        }
+      })
+    });
+    </script>
   </body>
 </html>
 {% endblock %}
