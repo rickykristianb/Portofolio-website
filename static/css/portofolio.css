@@ -231,8 +231,9 @@ li {
 }
 
 .card {
-  margin-top: 2%;
+  margin-top: 6%;
   margin-bottom:4%
+  width:100%;
 }
 
 .card-body {
@@ -420,10 +421,46 @@ ul.text-center {
 }
 
 .projects-card {
-    height: 450px;
+    height: 500px;
 }
 
 
 .pagination {
   margin: 0%;
+}
+
+.carousel.slide {
+    width: 150%; /* or any other value */
+    /* other CSS properties */
+}
+
+.carousel-item {
+    width: 60%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  outline: black;
+  background-size: 100%, 100%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 40px;
+  color: #4e6e81;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 40px;
+  color: #4e6e81;
+}
+
+.item-in-row {
+    width:175%;
+    padding-left:25%;
 }

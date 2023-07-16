@@ -138,18 +138,19 @@ def homepage():
         return jsonify(send_email_response)
 
     # pagination
-    page, per_page, offset = get_page_args(page_parameter="page", per_page_parameter="per_page", default_per_page=3)
-    total = len(all_projects)
-    per_page = 3
-    offset = (page - 1) * per_page
-    pagination_projects = all_projects[offset:offset + per_page]
-    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework="bootstrap4")
-
-    return render_template("index.html",
-                           form=message_form,
-                           form_for=form_for,
-                           projects=pagination_projects,
-                           pagination=pagination)
+    # page, per_page, offset = get_page_args(page_parameter="page", per_page_parameter="per_page", default_per_page=3)
+    # total = len(all_projects)
+    # per_page = 3
+    # offset = (page - 1) * per_page
+    # pagination_projects = all_projects[offset:offset + per_page]
+    # pagination = Pagination(page=page, per_page=per_page, total=total, css_framework="bootstrap4")
+    #
+    # return render_template("index.html",
+    #                        form=message_form,
+    #                        form_for=form_for,
+    #                        projects=pagination_projects,
+    #                        pagination=pagination)
+    return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects)
 
 
 @app.route("/download-resume/<path:filename>")
@@ -187,7 +188,9 @@ def add_projects():
                 db.save_add_project_detail(details=details)
             except pymysql.Error as err:
                 flash(f"Database Error: {str(err)}", "error")
+                print("GAGAL")
             else:
+                print("SUKSES")
                 flash("Add project is success", "success")
             return redirect(url_for("add_projects"))
         else:
