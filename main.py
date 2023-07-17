@@ -136,7 +136,7 @@ def homepage():
         name = request.form.get("company_name")
         send_email_response = send_email(name=name, email=email, message=message)
         return jsonify(send_email_response)
-    return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects)
+    return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects[:8])
 
 
 @app.route("/download-resume/<path:filename>")
