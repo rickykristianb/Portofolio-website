@@ -136,20 +136,6 @@ def homepage():
         name = request.form.get("company_name")
         send_email_response = send_email(name=name, email=email, message=message)
         return jsonify(send_email_response)
-
-    # pagination
-    # page, per_page, offset = get_page_args(page_parameter="page", per_page_parameter="per_page", default_per_page=3)
-    # total = len(all_projects)
-    # per_page = 3
-    # offset = (page - 1) * per_page
-    # pagination_projects = all_projects[offset:offset + per_page]
-    # pagination = Pagination(page=page, per_page=per_page, total=total, css_framework="bootstrap4")
-    #
-    # return render_template("index.html",
-    #                        form=message_form,
-    #                        form_for=form_for,
-    #                        projects=pagination_projects,
-    #                        pagination=pagination)
     return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects)
 
 
