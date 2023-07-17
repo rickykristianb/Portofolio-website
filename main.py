@@ -17,7 +17,6 @@ import lxml.html.clean
 from base64 import b64encode
 from flask_paginate import Pagination, get_page_args
 
-
 app = Flask(__name__)
 key = os.urandom(20)
 app.secret_key = key
@@ -93,9 +92,12 @@ def send_email(name, email, message):
     return response
 
 
-def clean_projects():
+def clean_projects(direct_to=None):
     """To remove all html tag from all project"""
-    all_projects = db.project_list()
+    if direct_to == "homepage":
+        all_projects = db.project_list(direct_to=direct_to)
+    else:
+        all_projects = db.project_list()
     for project in all_projects:
         for key, value in project.items():
             if isinstance(value, str):
@@ -125,11 +127,10 @@ def clean_one_project(id):
 # TODO: make this send email method to send email and clear form without refresh the page (ASYNC)
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    N = 0
     """Homepage to show profile. Include pagination for project list"""
-    all_projects = clean_projects()
+    all_projects = clean_projects(direct_to="homepage")
     message_form = SendMessage()
-    form_for = "homepage"
+    form_for = "homepage"  # to tell the message form at the footer is accessed from homepage
     if request.method == "POST":
         message = request.form.get("message")
         email = request.form.get("company_email")

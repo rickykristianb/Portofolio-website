@@ -508,3 +508,16 @@ ul.text-center {
 .nav-link:hover{
   text-align: center;
 }
+
+.see_more_projects a{
+    font-size:110%;
+    text-decoration: none;
+    position:absolute;
+    top:44%;
+    left: 120%;
+    width: 200%
+}
+
+.see_more_projects:hover a{
+    color: #4e6e81;
+}

@@ -32,7 +32,7 @@ def save_add_project_detail(**kwargs):
         connection.commit()
 
 
-def project_list():
+def project_list(direct_to=None):
     """To get all project on the database"""
     connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
                                  password=os.getenv("DATABASE_PASSWORD"),
@@ -42,12 +42,12 @@ def project_list():
                                  )
     with connection:
         with connection.cursor() as cursor:
-            sql = "SELECT * FROM projects"
+            if direct_to == "homepage":
+                sql = "SELECT * FROM projects LIMIT 8"
+            else:
+                sql = "SELECT * FROM projects"
             cursor.execute(sql)
             result = cursor.fetchall()
-
-    # image_file_path = os.path.join('Images', result["project_img"])  # Update with your directory path
-    # return send_file(image_file_path, mimetype="image/gif")
     return result
 
 
