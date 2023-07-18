@@ -233,9 +233,10 @@ def project_details(id):
     return render_template("project-details.html", form=message_form, form_for=form_for, project=project, id=id)
 
 
-@app.route('/asd')
-def index():
-    return render_template('pagination-sample.html')
+@app.route('/all_projects', methods=["GET"])
+def projects_list():
+    all_projects = clean_projects()
+    return render_template('all_projects.html', projects=all_projects)
 
 
 if __name__ == "__main__":

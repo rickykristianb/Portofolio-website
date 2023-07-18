@@ -11,7 +11,7 @@
           <p class="text-center profile-name">Ricky Kristian Butar Butar</p>
       </div>
       <div id="email_section">
-          <p class="text-center email_section"><a href = "mailto: ricky.kristianb@gmail.com" class="email_link">ricky.kristianb@gmail.com</a></p>
+          <p class="text-center email_section"><a href = "mailto: contact@rickykristianbutarbutar.com" class="email_link">contact@rickykristianbutarbutar.com</a></p>
       </div>
       <div id="project_button" class="text-center">
         <a class="button-link" href="#projects-page">
@@ -94,7 +94,7 @@
                                     </div>
                                     {% if loop.last %}
                                     <div class="see_more_projects">
-                                        <a href="">See More Projects</a>
+                                        <a href="{{ url_for('projects_list') }}">See More Projects</a>
                                     </div>
                                     {% endif %}
                             {% if loop.index % 3 == 0 or loop.last %}
