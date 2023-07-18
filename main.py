@@ -3,11 +3,10 @@ from flask import Flask, render_template, redirect, url_for, request, flash, sen
 from wtforms import StringField, SubmitField, validators, IntegerField, FloatField, TextAreaField
 from wtforms.fields import EmailField
 from flask_bootstrap import Bootstrap
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from flask_ckeditor import CKEditor, CKEditorField
-from wtforms.validators import DataRequired, URL, Length
+from wtforms.validators import DataRequired
 import os
 from dotenv import load_dotenv
 from smtplib import SMTP, SMTPResponseException, SMTPAuthenticationError, SMTPSenderRefused
@@ -15,7 +14,6 @@ import database_connection as db
 import lxml.html
 import lxml.html.clean
 from base64 import b64encode
-from flask_paginate import Pagination, get_page_args
 
 app = Flask(__name__)
 key = os.urandom(20)
