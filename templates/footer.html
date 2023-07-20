@@ -40,17 +40,17 @@
           {% if form_for == "homepage" %}
           <form method="post" id="send_message_form">
             {{ form.csrf_token }}
-            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field", id="company_name_field")}}<br>
-            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field", id="company_email_field") }}<br>
-            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field", id="message_field")}}<br>
+            {{ form.company_name.label(class_="form_label") }}<br>{{ form.company_name(class_="form_field", id="company_name_field")}}<br>
+            {{ form.company_email.label(class_="form_label") }}<br> {{ form.company_email(class_="form_field", id="company_email_field") }}<br>
+            {{ form.message.label(class_="form_label") }}<br> {{ form.message(class_="textarea-form form_field", id="message_field")}}<br>
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
           </form>
           {% else %}
           <form method="post" id="send_message_form_project_details">
             {{ form.csrf_token }}
-            {{ form.company_name.label }}<br>{{ form.company_name(class_="form_field", id="company_name_field2" )}}<br>
-            {{ form.company_email.label }}<br> {{ form.company_email(class_="form_field", id="company_email_field2") }}<br>
-            {{ form.message.label }}<br> {{ form.message(class_="textarea-form form_field", id="message_field2")}}<br>
+            {{ form.company_name.label(class_="form_label") }}<br>{{ form.company_name(class_="form_field", id="company_name_field2" )}}<br>
+            {{ form.company_email.label(class_="form_label") }}<br> {{ form.company_email(class_="form_field", id="company_email_field2") }}<br>
+            {{ form.message.label(class_="form_label") }}<br> {{ form.message(class_="textarea-form form_field", id="message_field2")}}<br>
             {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
           </form>
           {% endif %}

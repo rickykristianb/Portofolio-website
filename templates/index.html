@@ -25,25 +25,17 @@
       <div class="container-fluid">
         <div class="row about-row">
           <div class="profile-col col-lg-6">
-            <div class="profile-picture-div ">
+            <div class="image-container">
               <img class="profile-picture" src="../static/img/Profile-Picture-About-Page.png" alt="Profile Picture">
             </div>
           </div>
           <div class="profile-headline col-lg-6">
-            <div class="about-headline-div">
-              <p class="about-headline text-center">
-                Driving Innovation and Delivering Results through Clean, Efficient Code
-              </p>
-            </div>
             <hr />
-            <p class="professional-highlight">
-              With project management experience transitioning to a software developer role, I am passionate about
-              coding and eager to learn new skills and technologies. Throughout my career, I have successfully managed
-              and executed multiple projects, ensuring their timely delivery and adherence to quality standards. With a
-              strong foundation in Python programming, SQL, and a deep understanding of software development
-              principles, I excel in problem-solving, debugging, and coordinating coding projects. I am well-equipped to
-              contribute to innovative projects and effectively lead and coordinate teams.
-            </p>
+            <p class="professional-highlight text-justify">
+            Say hello to the "Humid Hacker," the coding sensation rising from the tropical embrace of Indonesia! <br><br> With an enthusiasm that rivals a kid in a candy store, Me is the master of turning caffeine-powered dreams into code reality!
+            As a developer with the heart of a problem-solving champion, I navigate the coding world like a seasoned captain, thanks to their exceptional project management experience! Whether it's untangling complex algorithms or orchestrating team collaborations, the "Humid Hacker" fearlessly takes the lead.
+            Fueling their coding escapades is an unyielding love for coffee - a magical elixir that keeps their programming prowess on point! When the code starts flowing, you can bet I've got a trusty cup of joe by my side! <br><br>
+            So, if you're seeking a coding wizard who thrives in the humidity of challenges, adores the aroma of coffee, and can manage projects like a pro, look no further than the one and only "Humid Hacker" from Indonesia! I am here to make the coding world brighter, one line of code and one perfectly brewed cup of coffee at a time! ☕</p>
             <div id="resume_button_bottom" class="text-center">
               <a href="{{ url_for('download_resume', filename='files/Resume-RickyKristianButarButar.pdf') }}" target="blank"><button type="button" class="btn btn-outline-dark btn-lg button_download_resume mx-auto">Download Resume</button></a>
             </div>
@@ -106,6 +98,9 @@
                             {% else %}
                             <div>
                                 <p class="no-project-list-homepage justify-content-center text-center">Project is under construction. Wait for deployment</p>
+                                <div class="no-project-gif">
+                                <iframe src="https://giphy.com/embed/JIX9t2j0ZTN9S" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/JIX9t2j0ZTN9S"></a></p>
+                                </div>
                             </div>
                             {% endif %}
                         </div>
