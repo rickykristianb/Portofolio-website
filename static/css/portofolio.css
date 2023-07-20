@@ -87,51 +87,52 @@ li {
 /* MOBILE SCREEN SIZE----------------------------------------------------*/
 @media (max-width: 990px)  {
 
-  #name_section {
-    font-size: 50%;
-  }
+    #name_section {
+        font-size: 50%;
+    }
 
-  .name-label {
-    margin-top: 10%
-  }
+    .name-label {
+        margin-top: 10%
+    }
 
-  #name_section, #project-title {
-    font-size: 50%;
-  }
+    #name_section, #project-title {
+        font-size: 50%;
+    }
 
-/* Contact Me Section*/
-  .contact-me-information {
-    margin-bottom: 15%;
-  }
+    /* Contact Me Section*/
+    .contact-me-information {
+        margin-bottom: 15%;
+    }
 
-  .contact-information, .contact-me-title{
-    font-size: 2em;
-  }
-  .social-media-icon-div {
-    padding-top: 4%;
-    font-size: 1.5em;
-  }
+    .contact-information, .contact-me-title{
+        font-size: 2em;
+    }
 
-  .button_download_resume_bottom {
-    width: 40%;
-  }
+    .social-media-icon-div {
+        padding-top: 4%;
+        font-size: 1.5em;
+    }
 
-  .button_download_resume {
-    width: 40%;
-  }
+    .button_download_resume_bottom {
+        width: 40%;
+    }
 
-  #resume_button_bottom a button {
-    font-size: 150%;
-  }
+    .button_download_resume {
+        width: 40%;
+    }
 
-  #resume_button_bottom {
-    margin-top: 10%;
-    padding-bottom: 10%
-  }
+    #resume_button_bottom a button {
+        font-size: 150%;
+    }
 
-  #resume_button_top a {
-    font-size: 150%;
-  }
+    #resume_button_bottom {
+        margin-top: 10%;
+        padding-bottom: 10%
+    }
+
+    #resume_button_top a {
+        font-size: 150%;
+    }
 
     /* Send Message Form*/
     .form_field {
@@ -188,7 +189,36 @@ li {
     #project_button a button{
         font-size:150%;
     }
+
+    .logo-glasses img{
+        width: 70%;
+        position: relative;
+        right: 150px;
+        top: 70px;
+        margin-bottom: 13%;
+    }
+
+    /* Project list on mobile screen*/
+    .projects_list_laptop_screen {
+        display: none;
+    }
+
+    #carouselExampleControls-mobile {
+        margin-top:5%;
+    }
+
+    .projects-card {
+        left: 15%;
+    }
 }
+
+/* Styles for laptop screens only */
+@media (min-width: 990px) {
+    .projects_list_mobile_screen{
+        display: none;
+    }
+}
+
 
 @media (max-width: 767px)  {
   .header-divider {
