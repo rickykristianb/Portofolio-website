@@ -83,20 +83,32 @@ li {
   }
 }
 
+#new-nav-header {
+    position: fixed;
+    top: 25%;
+    right:2%;
+    background-color: rgba(128,128,128, 0.2);
+    border-radius:550px;
+    z-index: 999;
+    width:45px;
+    height:300px;
+    display: none;
+}
+
+.new-nav-responsive-laptop, .new-nav-responsive-mobile {
+    display: none;
+}
+
 
 /* MOBILE SCREEN SIZE----------------------------------------------------*/
 @media (max-width: 990px)  {
-
-    #name_section {
-        font-size: 50%;
-    }
 
     .name-label {
         margin-top: 10%
     }
 
-    #name_section, #project-title {
-        font-size: 50%;
+    #name_section {
+        font-size: 65%;
     }
 
     /* Contact Me Section*/
@@ -104,8 +116,13 @@ li {
         margin-bottom: 15%;
     }
 
-    .contact-information, .contact-me-title{
+    .contact-information{
         font-size: 2em;
+    }
+
+    .contact-me-title {
+        font-size: 40px;
+        margin-bottom: 10%;
     }
 
     .social-media-icon-div {
@@ -118,11 +135,12 @@ li {
     }
 
     .button_download_resume {
-        width: 40%;
+        width: 50%;
+        height: 80px;;
     }
 
     #resume_button_bottom a button {
-        font-size: 150%;
+        font-size: 190%;
     }
 
     #resume_button_bottom {
@@ -136,8 +154,15 @@ li {
 
     /* Send Message Form*/
     .form_field {
-        height:35px;
+        height:60px;
+        width: 100%;
         border: 0.5px solid #4e6e81;
+        font-size: 40px;
+        color: #4e6e81;
+    }
+
+    .textarea-form {
+        height:200px;
     }
 
     .form_label {
@@ -145,8 +170,9 @@ li {
     }
 
     .send_message_button{
+        margin-top: 5%;
         width: 40%;
-        font-size: 2000em;   /* CEK KENAPA TIDAK BISA MEMPERBESAR FONT DI SEND MESSAGE BUTTON*/
+        font-size: 2em;   /* CEK KENAPA TIDAK BISA MEMPERBESAR FONT DI SEND MESSAGE BUTTON*/
     }
 
     /* About Page */
@@ -164,8 +190,14 @@ li {
     }
 
     /* Skills Set*/
+
+    .skills-set-title {
+        font-size: 40px;
+        margin-bottom: 5%;
+    }
+
     .skills-set-list ul li{
-        font-size: 1.5em;
+        font-size: 1.7em;
     }
 
     .professional-highlight {
@@ -183,19 +215,23 @@ li {
     }
 
     .button_browse_project {
-        width: 30%;
+        width: 50%;
+        height:100px;
+        font-size: 100px;
     }
 
     #project_button a button{
-        font-size:150%;
+        font-size:250%;
+        margin-bottom: 65%;
+        margin-top:10%;
     }
 
     .logo-glasses img{
         width: 70%;
         position: relative;
-        right: 150px;
-        top: 70px;
-        margin-bottom: 13%;
+        right: 140px;
+        margin-bottom: 2%;
+        margin-top: 35%;
     }
 
     /* Project list on mobile screen*/
@@ -207,15 +243,90 @@ li {
         margin-top:5%;
     }
 
+    .footer p{
+        font-size: 150%;
+    }
+
+    /* Bootstrap Card*/
+
     .projects-card {
         left: 15%;
+    }
+
+    .projects-card {
+        margin-left: 1%;
+        margin-right: 1%;
+        border-radius:40px;
+        width: 100px;
+        height: 700px;
+        transition: transform 0.3s ease;
+        margin-top: 5%;
+        box-shadow: 0 1px 15px rgba(78, 110, 129, 1);
+    }
+
+    /* Header Menu */
+    .nav-menu ul li a {
+        font-size: 40px;
+    }
+
+    .contact {
+        margin-top:17%;
+    }
+
+    .header-divider {
+    display: none;
+        position: block;
+        top: 10%;
+    }
+
+    /* Project Page */
+
+    .project-page-title h2{
+        font-size: 40px;
     }
 }
 
 /* Styles for laptop screens only */
-@media (min-width: 990px) {
+@media (min-width: 991px) {
     .projects_list_mobile_screen{
         display: none;
+    }
+
+    .nav-menu ul li a {
+      font-size: 25px;;
+    }
+
+    /* bootstrap card */
+    .projects-card {
+        margin-left: 1%;
+        margin-right: 1%;
+        border-radius:40px;
+        height: 500px;
+        transition: transform 0.3s ease;
+        margin-top: 2%;
+    }
+
+    .projects-card:hover {
+        transform: scale(1.04);
+        box-shadow: 0 1px 10px rgba(78, 110, 129, 0.8);
+    }
+
+    /* Flask Form */
+
+    .form_field {
+        width:90%;
+        border: 0.5px solid #4e6e81;
+    }
+
+    .textarea-form {
+        width:90%;
+        height:100px;
+    }
+
+    .send_message_button {
+        height: 2.5rem;
+        margin-top:3%;
+        font-size: 110%;
     }
 }
 
@@ -238,7 +349,38 @@ li {
   background-color: #4e6e81;
   font-weight: bold;
   color: white;
-  margin: 0.5% auto 2% 39%;
+  margin: 0.5% auto 2% auto%;
+}
+
+/* Animate the browse button */
+.button_browse_project {
+    border:none;
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Add transitions for smooth animation */
+}
+
+
+.button_browse_project:hover {
+  transform: scale(1.1); /* Apply scale transform on hover */
+  box-shadow: 0 0 10px rgba(78, 110, 129, 0.7); /* Add a subtle box shadow on hover */
+}
+
+/* Add pulsating animation */
+@keyframes pulsate {
+  0% {
+    transform: scale(1); /* Original size at the start of animation */
+  }
+  50% {
+    transform: scale(1.1); /* Scaled up at 50% of the animation */
+    box-shadow: 0 0 15px rgba(78, 110, 129, 0.8); /* Enhanced box shadow */
+  }
+  100% {
+    transform: scale(1); /* Back to original size at the end of animation */
+  }
+}
+
+/* Apply pulsating animation to the button */
+.button_browse_project {
+  animation: pulsate 2s infinite; /* The animation will repeat indefinitely */
 }
 
 .button_download_resume_bottom {
@@ -283,36 +425,7 @@ li {
   padding: 2% 2%;
 }
 
-.projects-card {
-  margin-left: 1%;
-  margin-right: 1%;
-  border-radius:40px;
-  height: 500px;
-  transition: transform 0.3s ease;
-  margin-top: 2%;
-}
 
-.projects-card:hover {
-    transform: scale(1.04);
-    box-shadow: 0 1px 10px rgba(78, 110, 129, 0.8);
-}
-
-.all_projects-card {
-  margin-left: 1%;
-  margin-right: 1%;
-  margin-top: 10%;
-  border-radius:40px;
-  height: 400px;
-  transition: transform 0.3s ease;
-}
-
-.all_projects-card:hover {
-    transform: scale(1.04);
-    box-shadow: 0 1px 10px rgba(78, 110, 129, 0.8);
-}
-.all_projects-card {
-    margin-left:0.5%;
-}
 
 .social-media-button {
   cursor: pointer;
@@ -325,9 +438,7 @@ li {
   color: #4e6e81;
 }
 
-.nav-menu ul li a {
-  font-size: 1.4rem;
-}
+
 
 .new-nav-menu ul li a {
   font-size: 0.95rem;
@@ -385,10 +496,6 @@ li {
 
 .br-skills-set-li {
     padding: 20%;
-}
-
-.card-body {
-    padding-bottom: 20%;
 }
 
 .see_more_div {
@@ -505,22 +612,9 @@ ul.text-center {
 
 /* submit button wtf form */
 .send_message_button {
-  background-color: #4e6e81;
-  color: white;
-  height: 2.5rem;;
-  border: none;
-  margin-top:3%;
-  font-size: 110%;
-}
-
-.textarea-form {
-    width:90%;
-    height:100px;
-}
-
-.form_field {
-    width:90%;
-    border: 0.5px solid #4e6e81;
+    background-color: #4e6e81;
+    color: white;
+    border: none;
 }
 
 /* flash message area */
@@ -567,7 +661,6 @@ ul.text-center {
     border-radius:30px;
 }
 
-
 .pagination {
   margin: 0%;
 }
@@ -613,17 +706,8 @@ ul.text-center {
     margin-bottom:4%;
 }
 
-#new-nav-header {
-  display: none;
-  position: fixed;
-  top: 25%;
-  right:2%;
-  background-color: rgba(128,128,128, 0.2);
-  border-radius:550px;
-  z-index: 999;
-  width:45px;
-  height:300px;
-}
+
+
 
 .hover-text {
   display: none; /* Initially hide the text */

@@ -14,6 +14,7 @@ import database_connection as db
 import lxml.html
 import lxml.html.clean
 from base64 import b64encode
+import asyncio
 
 app = Flask(__name__)
 key = os.urandom(20)
@@ -57,7 +58,7 @@ class AddProject(FlaskForm):
     submit = SubmitField(label="Add Projects")
 
 
-def send_email(name, email, message):
+async def send_email(name, email, message):
     error_message = {
         "message": "Upss... Your email has not been sent, please send again\n\n:(",
         "category": "error"}
