@@ -30,23 +30,34 @@
   <section id="homepage">
     <header id="nav-header" class="header-section">
       <div class="container-fluid container-header">
-        <nav class="nav-menu">
-          <ul class="nav pt-5 h4 justify-content-center">
-            <li class="nav-item px-5">
-              <a class="nav-link active" href="{{ url_for('homepage') }}#homepage">Home</a>
-            </li>
-            <li class="nav-item px-5">
-              <a class="nav-link active" href="{{ url_for('homepage') }}#about-page">About</a>
-            </li>
-            <li class="nav-item px-5">
-              <a class="nav-link" href="{{ url_for('homepage') }}#projects-page">Projects</a>
-            </li>
-            <li class="nav-item px-5">
-              <a class="nav-link contact" href="{{ url_for('homepage') }}#contact-page">Contact Me</a>
-            </li>
-          </ul>
+        <nav class="nav-menu navbar navbar-expand-lg">
+
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span><i class="fa-solid fa-bars fa-2xl toggle-button"></i></span>
+          </button>
+
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+            <div class="navbar-nav ">
+              <ul class="nav pt-5 h4 justify-content-center">
+                <li class="nav-item px-5">
+                  <a class="nav-link active" href="{{ url_for('homepage') }}#homepage">Home</a>
+                </li>
+                <li class="nav-item px-5">
+                  <a class="nav-link active" href="{{ url_for('homepage') }}#about-page">About</a>
+                </li>
+                <li class="nav-item px-5">
+                  <a class="nav-link" href="{{ url_for('homepage') }}#projects-page">Projects</a>
+                </li>
+                <li class="nav-item px-5">
+                  <a class="nav-link contact" href="{{ url_for('homepage') }}#contact-page">Contact Me</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
       </div>
+
       <div class="flash-message alert alert-dismissible fade-in" style="display: none;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -76,10 +87,10 @@
         <nav class="new-nav-menu ">
           <ul class="nav pt-2 justify-content-center">
             <li class="nav-item px-1 pt-4">
-              <a class="nav-link active" href="{{ url_for('homepage') }}#homepage"><i class="fa-solid fa-house fa-xl"></i></i><span class="hover-text">Home</span></a>
+              <a class="nav-link active" href="{{ url_for('homepage') }}#homepage"><i class="fa-solid fa-house fa-xl"></i><span class="hover-text">Home</span></a>
             </li>
             <li class="nav-item px-1 pt-4">
-              <a class="nav-link active" href="{{ url_for('homepage') }}#about-page"><i class="fa-solid fa-user fa-xl"></i><span class="hover-text">Profile</span></a>
+              <a class="nav-link active" href="{{ url_for('homepage') }}#about-page"><i class="fa-solid fa-user fa-xl"></i></i><span class="hover-text">Profile</span></a>
             </li>
             <li class="nav-item px-1 pt-4">
               <a class="nav-link" href="{{ url_for('homepage') }}#projects-page"><i class="fa-sharp fa-solid fa-diagram-project fa-xl"></i><span class="hover-text">Projects</span></a>

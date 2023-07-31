@@ -58,12 +58,12 @@ class AddProject(FlaskForm):
     submit = SubmitField(label="Add Projects")
 
 
-async def send_email(name, email, message):
+def send_email(name, email, message):
     error_message = {
         "message": "Upss... Your email has not been sent, please send again\n\n:(",
         "category": "error"}
     success_message = {
-        "message": "Your message has been sent to ricky.kristianb@gmail.com.\nI will reply shortly",
+        "message": "Your message has been sent to contact@rickykristianbutarbutar.com.\nI will reply shortly.",
         "category": "success"
     }
     with SMTP(host="smtp.gmail.com", port=587) as connection:
@@ -135,6 +135,7 @@ def homepage():
         email = request.form.get("company_email")
         name = request.form.get("company_name")
         send_email_response = send_email(name=name, email=email, message=message)
+
         return jsonify(send_email_response)
     return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects[:8])
 

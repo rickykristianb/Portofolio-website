@@ -25,6 +25,17 @@ hr {
   color: #4e6e81;
 }
 
+.navbar-toggler {
+    width: 100px;
+    height: 100px;
+    color: #4e6e81;
+}
+
+.toggle-button {
+    color: #4e6e81;
+}
+
+
 .project-page-title {
   margin: 10% auto 2.5% auto;
 }
@@ -83,17 +94,7 @@ li {
   }
 }
 
-#new-nav-header {
-    position: fixed;
-    top: 25%;
-    right:2%;
-    background-color: rgba(128,128,128, 0.2);
-    border-radius:550px;
-    z-index: 999;
-    width:45px;
-    height:300px;
-    display: none;
-}
+
 
 .new-nav-responsive-laptop, .new-nav-responsive-mobile {
     display: none;
@@ -102,6 +103,18 @@ li {
 
 /* MOBILE SCREEN SIZE----------------------------------------------------*/
 @media (max-width: 990px)  {
+
+    /* flash message area */
+    .flash-message {
+        position: fixed;
+        width: 98%;
+        height:5.5%;
+        z-index: 9999;
+        right:1%;
+        top:2%;
+        border: 2px;
+        font-size: 30px;
+    }
 
     .name-label {
         margin-top: 10%
@@ -231,7 +244,7 @@ li {
         position: relative;
         right: 140px;
         margin-bottom: 2%;
-        margin-top: 35%;
+        margin-top: 50%;
     }
 
     /* Project list on mobile screen*/
@@ -270,13 +283,43 @@ li {
     }
 
     .contact {
-        margin-top:17%;
+        margin-top:10%;
     }
 
     .header-divider {
-    display: none;
+        display: none;
         position: block;
         top: 10%;
+    }
+
+    #new-nav-header {
+        position: fixed;
+        top: 25%;
+        right:2%;
+        background-color: rgba(128,128,128, 0.2);
+        border-radius:550px;
+        z-index: 999;
+        width:8%;
+        height: 455px;
+        display: none;
+    }
+
+    .new-nav-menu ul li a i{
+        font-size: 250%;
+        margin-top: 40px;
+    }
+
+    .hover-text {
+        display: none; /* Initially hide the text */
+    }
+
+    .nav-link:hover .hover-text{
+        display: inline; /* Display the text on link hover */
+    }
+
+    .hover-text {
+        font-size: 20px;
+        padding-top: 100px;
     }
 
     /* Project Page */
@@ -288,12 +331,44 @@ li {
 
 /* Styles for laptop screens only */
 @media (min-width: 991px) {
+
+    /* flash message area */
+    .flash-message {
+        position: fixed;
+        width: 330px;
+        height:11%;
+        z-index: 9999;
+        right:1%;
+        top:2%;
+        border: 2px ;
+    }
+
     .projects_list_mobile_screen{
         display: none;
     }
 
+    .hover-text {
+        display: none; /* Initially hide the text */
+    }
+
+    .nav-link:hover .hover-text{
+        display: inline; /* Display the text on link hover */
+    }
+
     .nav-menu ul li a {
-      font-size: 25px;;
+        font-size: 25px;;
+    }
+
+    #new-nav-header {
+        position: fixed;
+        top: 25%;
+        right:2%;
+        background-color: rgba(128,128,128, 0.2);
+        border-radius:550px;
+        z-index: 999;
+        width:45px;
+        height:300px;
+        display: none;
     }
 
     /* bootstrap card */
@@ -617,16 +692,6 @@ ul.text-center {
     border: none;
 }
 
-/* flash message area */
-.flash-message {
-    position: fixed;
-    width: 300px;
-    height:11%;
-    z-index: 9999;
-    right:1%;
-    top:2%;
-    border: 2px ;
-}
 
 /* add - project page*/
 #add-project {
@@ -708,14 +773,6 @@ ul.text-center {
 
 
 
-
-.hover-text {
-  display: none; /* Initially hide the text */
-}
-
-.nav-link:hover .hover-text{
-  display: inline; /* Display the text on link hover */
-}
 
 .fa-address-card:hover i{
     display:none
