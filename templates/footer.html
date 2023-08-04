@@ -137,6 +137,121 @@
           © Ricky Kristian Butar Butar
         </p>
       </div>
+      <div class="chat">
+        <button type="button" class="chat-button">
+          <span>Chat With Me</span>
+        </button>
+      </div>
+      <div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <span>Messages</span>
+      </div>
+      <div class="chat-header-close-button">
+        <span class="close-chat" id="closeChat"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+    </div>
+    <div class="user-chat-input-container" id="user-chat-input-container">
+      <div class="user-chat-input">
+        <input type="text" placeholder="Name" name="user-chat-name" id="user-chat-name"><br>
+        <a><button type="submit" class="btn btn-outline-dark btn-lg mx-auto" id="startChatButton" name="start-chating" onclick="sendData()">Start Chatting</button></a>
+      </div>
+      <div class="flash-message-chat-box alert alert-dismissible fade-in"></div>
+    </div>
+    <div class="messages-container" style="display: none;">
+      <div class="messages" id="messages"></div>
+      <div class="input">
+        <input type="text" rows="3" placeholder="Messages" name="front-message" id="front-message" class="message">
+        <button type="button" class="send-button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
+      </div>
+    </div>
+    <script>
+    var socketio; // Declare the socketio variable in the global scope
+
+    function sendData() {
+      var name = document.getElementById("user-chat-name").value;
+
+      $.ajax({
+        url: "http://127.0.0.1:5000/api/chat-box",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ 'name': name }),
+        success: function (response) {
+          if (response.category === 'error') {
+            $(".flash-message-chat-box").html(response.message);
+            $(".flash-message-chat-box").removeClass("alert-success alert-danger").addClass("alert-danger");
+            $(".flash-message-chat-box").fadeIn(500).delay(3000).fadeOut(500);
+          } else {
+            var messagesContainer = document.querySelector('.messages-container');
+            var userChatInput = document.getElementById("user-chat-input-container")
+            if (messagesContainer.style.display === 'none') {
+              messagesContainer.style.display = 'block';
+              userChatInput.style.display = 'none'
+            } else {
+              messagesContainer.style.display = 'none';
+            }
+
+            // Connect To Websocket and pass the user name to the server
+            socketio = io({
+              query: {
+                name: name
+              }
+            });
+
+            socketio.on("message", (data) => {
+              const messages = document.getElementById("messages");
+              const content = `
+                <div class="text">
+                  <span>
+                    <strong>${data.name}</strong>: ${data.message}
+                  </span>
+                  <span class="muted">
+                    ${new Date().toLocaleTimeString()}
+                  </span>
+                </div>
+              `;
+              messages.innerHTML += content;
+            });
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    // Add event listener for "Send" button
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+    function sendMessage() {
+      const message = document.getElementById("front-message")
+      if (message.value == "") return;
+      socketio.emit("message", { data: message.value })
+      message.value = "";
+    };
+  </script>
+  </div>
+
+      <script>
+        // Function to toggle the chat container
+        function toggleChatContainer() {
+            var chatContainer = document.getElementById("chatContainer");
+            if (chatContainer.style.display === "none") {
+                chatContainer.style.display = "block";
+            } else {
+                chatContainer.style.display = "none";
+            }
+        }
+
+        // Event listener to toggle the chat container when the button is clicked
+        var chatButton = document.querySelector(".chat-button");
+        chatButton.addEventListener("click", toggleChatContainer);
+
+        // Event listener to hide the chat container when the close button is clicked
+        var closeChatButton = document.getElementById("closeChat");
+        closeChatButton.addEventListener("click", toggleChatContainer);
+
+      </script>
     </section>
   </body>
 </html>

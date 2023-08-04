@@ -1,5 +1,7 @@
+import random
+
 import pymysql
-from flask import Flask, render_template, redirect, url_for, request, flash, send_from_directory, Response, jsonify
+from flask import Flask, render_template, redirect, url_for, request, flash, send_from_directory, Response, jsonify, session
 from wtforms import StringField, SubmitField, validators, IntegerField, FloatField, TextAreaField
 from wtforms.fields import EmailField
 from flask_bootstrap import Bootstrap
@@ -14,22 +16,31 @@ import database_connection as db
 import lxml.html
 import lxml.html.clean
 from base64 import b64encode
-import asyncio
+from flask_socketio import join_room, leave_room, send, SocketIO, emit
+import requests
 
 app = Flask(__name__)
 key = os.urandom(20)
 app.secret_key = key
 Bootstrap(app)
 ckeditor = CKEditor(app)
+socketio = SocketIO(app)
 
 load_dotenv()
 SENDER_EMAIL = os.getenv('SENDER_EMAIL')
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+CHATBOX_EMAIL = os.getenv('CHATBOX_EMAIL')
 
 UPLOAD_FOLDER = 'images'
 ALLOWED_EXTENSTION = {"png", "jpg", "jpeg", "gif"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+
+# List of rooms created
+rooms = {}
+rooms_code = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+              'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 
 # --------- FLASK FORM
@@ -127,17 +138,132 @@ def clean_one_project(id):
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     """Homepage to show profile. Include pagination for project list"""
+    session.clear()  # clear session everytime enter homepage
     all_projects = clean_projects(direct_to="homepage")
     message_form = SendMessage()
     form_for = "homepage"  # to tell the message form at the footer is accessed from homepage
     if request.method == "POST":
+        # send email
         message = request.form.get("message")
         email = request.form.get("company_email")
         name = request.form.get("company_name")
+
         send_email_response = send_email(name=name, email=email, message=message)
 
         return jsonify(send_email_response)
     return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects[:8])
+
+
+def generate_room(length: int):
+    while True:
+        code = ""
+        for _ in range(length):
+            code += random.choice(rooms_code)
+
+        if code not in rooms:
+            break
+
+    return code
+
+
+@app.route("/api/chat-box", methods=["GET", "POST"])
+def chatbox():
+    data = request.get_json()
+    name = data.get("name")
+
+    if not name:
+        print("Ga ada nama")
+        response_data = {
+            "message": "Please Enter Your Name",
+            'category': 'error'
+        }
+        return jsonify(response_data)
+    # Generate rooms code
+    room_code = generate_room(5)
+
+    rooms[room_code] = {
+        "members": 0,
+        "messages": []
+    }
+
+    session["room"] = room_code
+    session["name"] = name
+    session["usercode"] = 2
+
+    # Returning a response back to the frontend
+    messages = rooms[room_code]["messages"]
+    return jsonify(messages)
+
+
+@socketio.on("connect")
+def connect(auth):
+    room = session.get("room")
+    name = session.get("name")
+    usercode = session.get("usercode")
+
+    if not room and not name:
+        return
+    if room not in rooms:
+        leave_room(room)
+        return
+
+    join_room(room)
+
+    # Send whatsapp to Ricky which contains the link to the center chat box
+    if usercode != 1:
+        with SMTP(host="smtp.gmail.com", port=587) as connection:
+            connection.starttls()
+            try:
+                connection.login(user=SENDER_EMAIL, password=EMAIL_PASSWORD)
+                connection.sendmail(
+                    from_addr=SENDER_EMAIL,
+                    to_addrs=CHATBOX_EMAIL,
+                    msg=f"Subject:NEW CHAT BOX\n\n"
+                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\n127.0.0.1:5000/center-chatbox/{room}"
+                )
+            except Exception as err:
+                print(err)
+
+    rooms[room]["members"] += 1
+    send({'name': name, "message": "has entered the room"}, to=room)
+    print(f"{name} has entered the room: {room}")
+
+
+@socketio.on("disconnect")
+def disconnect():
+    room = session.get("room")
+    name = session.get("name")
+    leave_room(room)
+
+    if room in rooms:
+        rooms[room]["members"] -= 1
+        if rooms[room]["members"] <= 0:
+            del rooms[room]
+
+    send({"name": name, "message": "has left the chat. This chat is no longer exist"}, to=room)
+    print(f"{name} has left the chat")
+
+
+@socketio.on("message")
+def message(data):
+    room = session.get("room")
+    name = session.get("name")
+    if room and name:
+        message = data.get("data")
+        if message:
+            message_data = {
+                "name": name,
+                "message": message
+            }
+            rooms[room]["messages"].append(message_data)
+            emit("message", message_data, room=room)
+
+
+@app.route("/center-chatbox/<string:room>")
+def center_chat(room):
+    session["name"] = "Ricky"
+    session["usercode"] = 1
+    return render_template("center-chatbox.html", messages=rooms[room]["messages"])
 
 
 @app.route("/download-resume/<path:filename>")

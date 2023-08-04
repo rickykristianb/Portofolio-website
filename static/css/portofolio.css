@@ -20,7 +20,7 @@ hr {
 
 
 .nav-link, #name_section, #email_section, .profile-headline, .about-title-page,
-.project-page-title, p, .skills-set-title, li, a, label, .contact-me-title, h1, .send_message_button{
+.project-page-title, p, .skills-set-title, li, a, label, .contact-me-title, h1, .send_message_button, .chat-button, .send-button{
   font-family: 'Montserrat', sans-serif;
   color: #4e6e81;
 }
@@ -343,6 +343,15 @@ li {
         border: 2px ;
     }
 
+    .flash-message-chat-box {
+        position: absolute;
+        top: 50%;
+        width: 300px;
+        height:11%;
+        text-align: center;
+        padding: 4.5% 0;
+    }
+
     .projects_list_mobile_screen{
         display: none;
     }
@@ -405,6 +414,162 @@ li {
     }
 }
 
+/*Chat with me button*/
+.chat-button {
+    position: fixed;
+    bottom: 5%;
+    left: 2%;
+    background-color: rgba(78, 110, 129);
+    border-radius:10px;
+    border-style: none;
+    z-index: 999;
+    width:8%;
+    height: 5%;
+    color: white;
+}
+
+.user-chat-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.user-chat-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.user-chat-input label, .user-chat-input input, .user-chat-input button {
+  margin: 5px 0;
+}
+
+.user-chat-input button {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    background-color: rgba(78, 110, 129);
+    border-radius: 3px;
+    height: 50px;
+    border-style: none;
+}
+
+/* Styles for the chat container */
+.chat-container {
+    display: none;
+    position: fixed;
+    bottom: 13%;
+    left: 2%;
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    align-items: stretch;
+    box-shadow: 0 1px 15px rgba(78, 110, 129, 0.5);
+    transition: transform 0.3s ease-in-out; /* Add transition for smooth opening/closing */
+}
+
+.chat-container.open {
+    transform: translateY(0);
+}
+
+/* Styles for the chat header */
+.chat-header {
+    position: relative;
+    height: 70px;
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(78, 110, 129);
+    color: white;
+    padding: 10px;
+}
+
+.chat-header-title{
+    position: relative;
+    font-size: 2rem;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    left: 100px;
+}
+
+/* Styles for the close button in the header */
+.close-chat {
+    position: relative;
+    bottom: 3rem;
+    float: right;
+    color: white;
+}
+
+/* Styles for the chat body */
+.messages {
+    overflow-y: scroll;
+    flex: 1;
+    left: 100px;
+    width: 100%;
+    height: 29em;
+}
+
+.center-chatbox {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    align-items: center;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: white;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    align-items: stretch;
+}
+
+.center-messages {
+    overflow-y: scroll;
+    flex: 1;
+    width: 100%;
+    height: 29em;
+}
+
+.text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.muted {
+    font-size: 10px;
+    color: darkgrey;
+}
+
+.input {
+    position: relative;
+    left: 5%;
+}
+
+.message {
+    width: 70%;
+}
+
+#center-message {
+    width: 80%;
+}
+
+.send-button {
+    color: white;
+    background-color: rgba(78, 110, 129);
+    border-style: none;
+    height: 30px;
+    position: relative;
+    bottom: 1px;
+    left: 1px;
+}
 
 @media (max-width: 767px)  {
   .header-divider {
