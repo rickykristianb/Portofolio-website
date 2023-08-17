@@ -219,7 +219,7 @@ def connect(auth):
                     from_addr=SENDER_EMAIL,
                     to_addrs=CHATBOX_EMAIL,
                     msg=f"Subject:NEW CHAT BOX\n\n"
-                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\n192.168.100.6:5000/center-chatbox/{room}"
+                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\nrickykristianbutarbutar.com/center-chatbox/{room}"
                 )
             except Exception as err:
                 print(err)
@@ -376,4 +376,4 @@ def projects_list():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.100.6", port=5000)
+    app.run()
