@@ -1,13 +1,21 @@
 {% include "header.html" %}
 {% block content %}
     <div class="center-chatbox">
-        <h2>Chat Room:</h2>
+        <h2>Chat Room: {{ client }}</h2>
         <div class="center-messages" id="center-messages"></div>
         <div class="input">
-            <input type="text" rows="3" placeholder="Messages" name="message" id="center-message">
+            <input type="text" rows="3" placeholder="Messages" name="message" id="center-message" onkeypress="handleKeyPress(event)">
             <button type="button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
         </div>
     </div>
+    <script>
+        function handleKeyPress(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default behavior of the Enter key (form submission)
+            sendMessage(); // Call the sendMessage function (same as clicking the "Send" button)
+          }
+        }
+    </script>
     <script type="text/javascript">
     var socketio = io();
 

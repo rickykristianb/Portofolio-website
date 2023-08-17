@@ -138,11 +138,11 @@
         </p>
       </div>
       <div class="chat">
-        <button type="button" class="chat-button">
-          <span>Chat With Me</span>
-        </button>
+        <a>
+          <button type="button" class="chat-button">Chat With Me</button>
+        </a>
       </div>
-      <div class="chat-container" id="chatContainer">
+    <div class="chat-container" id="chatContainer">
     <div class="chat-header">
       <div class="chat-header-title">
         <span>Messages</span>
@@ -161,18 +161,25 @@
     <div class="messages-container" style="display: none;">
       <div class="messages" id="messages"></div>
       <div class="input">
-        <input type="text" rows="3" placeholder="Messages" name="front-message" id="front-message" class="message">
+        <input type="text" rows="3" placeholder="Messages" name="front-message" id="front-message" class="message" onkeypress="handleKeyPress(event)">
         <button type="button" class="send-button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
       </div>
     </div>
     <script>
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default behavior of the Enter key (form submission)
+        sendMessage(); // Call the sendMessage function (same as clicking the "Send" button)
+      }
+    }
+  </script>
+    <script>
     var socketio; // Declare the socketio variable in the global scope
 
-    function sendData() {
+    function sendData() {   // Send data from chat box to api chat-box
       var name = document.getElementById("user-chat-name").value;
-
       $.ajax({
-        url: "http://127.0.0.1:5000/api/chat-box",
+        url: "http://192.168.100.6:5000/api/chat-box",
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({ 'name': name }),
@@ -200,10 +207,18 @@
 
             socketio.on("message", (data) => {
               const messages = document.getElementById("messages");
-              const content = `
+              let content = `
                 <div class="text">
                   <span>
-                    <strong>${data.name}</strong>: ${data.message}
+                `;
+
+                if (data.name && data.message) {
+                      content += `<strong>${data.name}</strong>: ${data.message}`;
+                    }
+                if (data.waiting_message) {
+                      content += `<span>${data.waiting_message}</span>`;
+                    }
+                content += `
                   </span>
                   <span class="muted">
                     ${new Date().toLocaleTimeString()}

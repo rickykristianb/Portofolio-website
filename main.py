@@ -1,5 +1,4 @@
 import random
-
 import pymysql
 from flask import Flask, render_template, redirect, url_for, request, flash, send_from_directory, Response, jsonify, session
 from wtforms import StringField, SubmitField, validators, IntegerField, FloatField, TextAreaField
@@ -17,7 +16,6 @@ import lxml.html
 import lxml.html.clean
 from base64 import b64encode
 from flask_socketio import join_room, leave_room, send, SocketIO, emit
-import requests
 
 app = Flask(__name__)
 key = os.urandom(20)
@@ -182,13 +180,15 @@ def chatbox():
     room_code = generate_room(5)
 
     rooms[room_code] = {
+        "members_name": [],
         "members": 0,
-        "messages": []
+        "messages": [],
+        "counter": 0
     }
 
     session["room"] = room_code
     session["name"] = name
-    session["usercode"] = 2
+    session["usercode"] = 2  # To differentiate between Ricky and Other person. 2 for other person, 1 for Ricky
 
     # Returning a response back to the frontend
     messages = rooms[room_code]["messages"]
@@ -209,7 +209,7 @@ def connect(auth):
 
     join_room(room)
 
-    # Send whatsapp to Ricky which contains the link to the center chat box
+    # Send email to Ricky which contains the link to the center chat box
     if usercode != 1:
         with SMTP(host="smtp.gmail.com", port=587) as connection:
             connection.starttls()
@@ -219,14 +219,19 @@ def connect(auth):
                     from_addr=SENDER_EMAIL,
                     to_addrs=CHATBOX_EMAIL,
                     msg=f"Subject:NEW CHAT BOX\n\n"
-                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\n127.0.0.1:5000/center-chatbox/{room}"
+                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\n192.168.100.6:5000/center-chatbox/{room}"
                 )
             except Exception as err:
                 print(err)
 
     rooms[room]["members"] += 1
-    send({'name': name, "message": "has entered the room"}, to=room)
-    print(f"{name} has entered the room: {room}")
+    rooms[room]["counter"] += 1
+    rooms[room]["members_name"].append(name)
+    send({'name': name, "message": "has entered the chat"}, to=room)
+
+    if rooms[room]["counter"] == 1:
+        send({'waiting_message': "Wait for Ricky to enter the chat ......"}, to=room)
+    print(f"{name} has entered the chat: {room}")
 
 
 @socketio.on("disconnect")
@@ -237,7 +242,7 @@ def disconnect():
 
     if room in rooms:
         rooms[room]["members"] -= 1
-        if rooms[room]["members"] <= 0:
+        if rooms[room]["members"] <= 1:
             del rooms[room]
 
     send({"name": name, "message": "has left the chat. This chat is no longer exist"}, to=room)
@@ -253,7 +258,7 @@ def message(data):
         if message:
             message_data = {
                 "name": name,
-                "message": message
+                "message": message,
             }
             rooms[room]["messages"].append(message_data)
             emit("message", message_data, room=room)
@@ -262,8 +267,13 @@ def message(data):
 @app.route("/center-chatbox/<string:room>")
 def center_chat(room):
     session["name"] = "Ricky"
+    session["room"] = room
     session["usercode"] = 1
-    return render_template("center-chatbox.html", messages=rooms[room]["messages"])
+
+    return render_template("center-chatbox.html",
+                           messages=rooms[room]["messages"],
+                           client=rooms[room]["members_name"][0]
+                           )
 
 
 @app.route("/download-resume/<path:filename>")
@@ -366,4 +376,4 @@ def projects_list():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="192.168.100.6", port=5000)
