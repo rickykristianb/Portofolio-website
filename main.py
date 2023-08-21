@@ -18,7 +18,7 @@ from base64 import b64encode
 from flask_socketio import join_room, leave_room, send, SocketIO, emit
 
 app = Flask(__name__)
-key = os.urandom(20)
+key = os.getenv("SECRET_KEY")
 app.secret_key = key
 Bootstrap(app)
 ckeditor = CKEditor(app)
@@ -376,4 +376,4 @@ def projects_list():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host="192.168.100.6", port=5000)
