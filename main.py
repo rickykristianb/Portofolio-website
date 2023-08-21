@@ -18,17 +18,17 @@ from base64 import b64encode
 from flask_socketio import join_room, leave_room, send, SocketIO, emit
 
 app = Flask(__name__)
-key = os.getenv("SECRET_KEY")
+key = os.environ.get("SECRET_KEY")
 app.secret_key = key
 Bootstrap(app)
 ckeditor = CKEditor(app)
 socketio = SocketIO(app)
 
 load_dotenv()
-SENDER_EMAIL = os.getenv('SENDER_EMAIL')
-RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
-EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
-CHATBOX_EMAIL = os.getenv('CHATBOX_EMAIL')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+CHATBOX_EMAIL = os.environ.get('CHATBOX_EMAIL')
 
 UPLOAD_FOLDER = 'images'
 ALLOWED_EXTENSTION = {"png", "jpg", "jpeg", "gif"}
@@ -376,4 +376,4 @@ def projects_list():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.100.6", port=5000)
+    app.run()
