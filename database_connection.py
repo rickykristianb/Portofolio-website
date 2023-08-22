@@ -3,8 +3,6 @@ import pymysql
 import os
 from dotenv import load_dotenv
 from math import ceil
-import lxml.html
-import lxml.html.clean
 
 load_dotenv()
 

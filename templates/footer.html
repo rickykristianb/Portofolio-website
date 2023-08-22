@@ -179,7 +179,7 @@
     function sendData() {   // Send data from chat box to api chat-box
       var name = document.getElementById("user-chat-name").value;
       $.ajax({
-        url: "http://192.168.100.6:5000/api/chat-box",
+        url: "http://127.0.0.1:5000/api/chat-box",
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({ 'name': name }),
