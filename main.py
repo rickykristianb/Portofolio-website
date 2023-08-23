@@ -219,7 +219,7 @@ def connect(auth):
                     from_addr=SENDER_EMAIL,
                     to_addrs=CHATBOX_EMAIL,
                     msg=f"Subject:NEW CHAT BOX\n\n"
-                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\n127.0.0.1:5000/center-chatbox/{room}"
+                        f"FROM: {name}\nROOM CODE: {room}\nMESSAGE: \n\n82.180.139.7:5000/center-chatbox/{room}"
                 )
             except Exception as err:
                 print(err)
