@@ -3,16 +3,16 @@ import pymysql
 import os
 from dotenv import load_dotenv
 from math import ceil
-
+from config import Config
 load_dotenv()
 
 
 def save_add_project_detail(**kwargs):
     """To save project to database"""
-    connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
-                                 password=os.getenv("DATABASE_PASSWORD"),
-                                 host=os.getenv("HOST"),
-                                 database=os.getenv("DATABASE"),
+    connection = pymysql.connect(user=Config.DATABASE_USERNAME,
+                                 password=Config.DATABASE_PASSWORD,
+                                 host=Config.HOST,
+                                 database=Config.DATABASE,
                                  cursorclass=pymysql.cursors.DictCursor
                                  )
     print(kwargs)
@@ -31,11 +31,12 @@ def save_add_project_detail(**kwargs):
 
 
 def project_list(direct_to=None):
-    """To get all project on the database"""
-    connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
-                                 password=os.getenv("DATABASE_PASSWORD"),
-                                 host=os.getenv("HOST"),
-                                 database=os.getenv("DATABASE"),
+    """To get all project on the database. Used in homepage and all-projects page.
+    Direct_to is to indicate the data fetch is for what page."""
+    connection = pymysql.connect(user=Config.DATABASE_USERNAME,
+                                 password=Config.DATABASE_PASSWORD,
+                                 host=Config.HOST,
+                                 database=Config.DATABASE,
                                  cursorclass=pymysql.cursors.DictCursor
                                  )
     with connection:
@@ -50,11 +51,12 @@ def project_list(direct_to=None):
 
 
 def retrieve_project(id):
-    """To retrieve project from database based on id"""
-    connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
-                                 password=os.getenv("DATABASE_PASSWORD"),
-                                 host=os.getenv("HOST"),
-                                 database=os.getenv("DATABASE"),
+    """To retrieve project from database based on id
+    To show a project in project-detail page"""
+    connection = pymysql.connect(user=Config.DATABASE_USERNAME,
+                                 password=Config.DATABASE_PASSWORD,
+                                 host=Config.HOST,
+                                 database=Config.DATABASE,
                                  cursorclass=pymysql.cursors.DictCursor
                                  )
     with connection:
@@ -68,10 +70,10 @@ def retrieve_project(id):
 
 def count_projects():
     """To count number of project in the database"""
-    connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
-                                 password=os.getenv("DATABASE_PASSWORD"),
-                                 host=os.getenv("HOST"),
-                                 database=os.getenv("DATABASE"),
+    connection = pymysql.connect(user=Config.DATABASE_USERNAME,
+                                 password=Config.DATABASE_PASSWORD,
+                                 host=Config.HOST,
+                                 database=Config.DATABASE,
                                  cursorclass=pymysql.cursors.DictCursor
                                  )
     with connection:
@@ -84,10 +86,10 @@ def count_projects():
 
 
 def get_projects(page, per_page):
-    connection = pymysql.connect(user=os.getenv("DATABASE_USERNAME"),
-                                 password=os.getenv("DATABASE_PASSWORD"),
-                                 host=os.getenv("HOST"),
-                                 database=os.getenv("DATABASE"),
+    connection = pymysql.connect(user=Config.DATABASE_USERNAME,
+                                 password=Config.DATABASE_PASSWORD,
+                                 host=Config.HOST,
+                                 database=Config.DATABASE,
                                  cursorclass=pymysql.cursors.DictCursor
                                  )
 

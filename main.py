@@ -16,19 +16,21 @@ import lxml.html
 import lxml.html.clean
 from base64 import b64encode
 from flask_socketio import join_room, leave_room, send, SocketIO, emit
+from config import Config
+import time
 
 app = Flask(__name__)
-key = os.environ.get("SECRET_KEY")
+key = Config.SECRET_KEY
 app.secret_key = key
 Bootstrap(app)
 ckeditor = CKEditor(app)
 socketio = SocketIO(app)
 
 load_dotenv()
-SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
-RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-CHATBOX_EMAIL = os.environ.get('CHATBOX_EMAIL')
+SENDER_EMAIL = Config.SENDER_EMAIL
+RECIPIENT_EMAIL = Config.RECIPIENT_EMAIL
+EMAIL_PASSWORD = Config.EMAIL_PASSWORD
+CHATBOX_EMAIL = Config.CHATBOX_EMAIL
 
 UPLOAD_FOLDER = 'images'
 ALLOWED_EXTENSTION = {"png", "jpg", "jpeg", "gif"}
@@ -170,7 +172,6 @@ def chatbox():
     name = data.get("name")
 
     if not name:
-        print("Ga ada nama")
         response_data = {
             "message": "Please Enter Your Name",
             'category': 'error'
@@ -227,10 +228,12 @@ def connect(auth):
     rooms[room]["members"] += 1
     rooms[room]["counter"] += 1
     rooms[room]["members_name"].append(name)
-    send({'name': name, "message": "has entered the chat"}, to=room)
-
+    time.sleep(0.5)
     if rooms[room]["counter"] == 1:
+        send({'name': name, "message": "has entered the chat"}, to=room)
         send({'waiting_message': "Wait for Ricky to enter the chat ......"}, to=room)
+    else:
+        send({'name': name, "message": "has entered the chat"}, to=room)
     print(f"{name} has entered the chat: {room}")
 
 
@@ -261,6 +264,7 @@ def message(data):
                 "message": message,
             }
             rooms[room]["messages"].append(message_data)
+            time.sleep(0.5)
             emit("message", message_data, room=room)
 
 
@@ -270,6 +274,7 @@ def center_chat(room):
     session["room"] = room
     session["usercode"] = 1
 
+    time.sleep(0.5)
     return render_template("center-chatbox.html",
                            messages=rooms[room]["messages"],
                            client=rooms[room]["members_name"][0]
@@ -376,4 +381,4 @@ def projects_list():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host="192.168.100.6", port=5000)

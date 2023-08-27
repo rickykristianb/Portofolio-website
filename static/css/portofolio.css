@@ -1110,26 +1110,8 @@ ul.text-center {
     width: 60%;
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  height: 100px;
-  width: 100px;
-  outline: black;
-  background-size: 100%, 100%;
-  background-image: none;
-}
-
-.carousel-control-next-icon:after
-{
-  content: '>';
-  font-size: 40px;
-  color: #4e6e81;
-}
-
-.carousel-control-prev-icon:after {
-  content: '<';
-  font-size: 40px;
-  color: #4e6e81;
+.fa-circle-chevron-left, .fa-circle-chevron-right{
+    color: #4e6e81;
 }
 
 .item-in-row {
@@ -1141,8 +1123,6 @@ ul.text-center {
 .items-box {
     margin-bottom:4%;
 }
-
-
 
 
 .fa-address-card:hover i{
