@@ -148,9 +148,12 @@ def homepage():
         email = request.form.get("company_email")
         name = request.form.get("company_name")
 
-        send_email_response = send_email(name=name, email=email, message=message)
-
-        return jsonify(send_email_response)
+        if message is not None or email is not None or name is not None:
+            send_email_response = send_email(name=name, email=email, message=message)
+            return jsonify(send_email_response)
+        else:
+            return
+        
     return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects[:8])
 
 

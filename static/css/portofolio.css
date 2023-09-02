@@ -700,7 +700,9 @@ li {
     color:black;
 }
 
-
+#submit_button:hover, #submit_button_project_details_page:hover{
+        background-color: #353535;
+    }
 
     /* Nav Bar border*/
     .nav-top {
@@ -791,9 +793,6 @@ li {
         font-size: 110%;
     }
 
-    #submit_button:hover, #submit_button_project_details_page:hover{
-        background-color: #353535;
-    }
 
     /*Chat with me button*/
 
