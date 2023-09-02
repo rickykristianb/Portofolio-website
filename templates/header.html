@@ -41,7 +41,7 @@
 
           <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
             <div class="navbar-nav ">
-              <ul class="nav pt-5 h4 justify-content-center">
+              <ul class="nav nav-top pt-5 h4 justify-content-center">
                 <li class="nav-item px-5">
                   <a class="nav-link active" href="{{ url_for('homepage') }}#homepage">Home</a>
                 </li>
@@ -64,9 +64,6 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div>
-        <hr class="header-divider mx-auto"/>
       </div>
     </header>
   </section>
@@ -103,10 +100,11 @@
           </ul>
         </nav>
       </div>
-      <div class="flash-message alert alert-dismissible fade-in" style="display: none;">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
 
+    <!-- Display flash message For Sending Message -->
+    <div class="flash-message alert alert-dismissible fade-in" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     </header>

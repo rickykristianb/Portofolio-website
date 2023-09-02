@@ -170,6 +170,13 @@ def generate_room(length: int):
 def chatbox():
     data = request.get_json()
     name = data.get("name")
+    error = data.get("error")
+
+    if error:
+        websocket_error = {
+            "error_websocket_message": "Sorry for the inconvenient, please refresh your page and try again chatting with me."
+        }
+        return jsonify(websocket_error)
 
     if not name:
         response_data = {
@@ -210,7 +217,16 @@ def connect(auth):
 
     join_room(room)
 
-    # Send email to Ricky which contains the link to the center chat box
+    rooms[room]["members"] += 1
+    rooms[room]["counter"] += 1
+    rooms[room]["members_name"].append(name)
+    time.sleep(0.5)
+    send({'name': name, "message": "has entered the chat"}, to=room)
+    print(f"{name} has entered the chat: {room}")
+    if rooms[room]["counter"] == 1:
+        send({'waiting_message': "Wait for Ricky to enter the chat ......"}, to=room)
+
+        # Send email to Ricky which contains the link to the center chat box
     if usercode != 1:
         with SMTP(host="smtp.gmail.com", port=587) as connection:
             connection.starttls()
@@ -224,17 +240,6 @@ def connect(auth):
                 )
             except Exception as err:
                 print(err)
-
-    rooms[room]["members"] += 1
-    rooms[room]["counter"] += 1
-    rooms[room]["members_name"].append(name)
-    time.sleep(0.5)
-    if rooms[room]["counter"] == 1:
-        send({'name': name, "message": "has entered the chat"}, to=room)
-        send({'waiting_message': "Wait for Ricky to enter the chat ......"}, to=room)
-    else:
-        send({'name': name, "message": "has entered the chat"}, to=room)
-    print(f"{name} has entered the chat: {room}")
 
 
 @socketio.on("disconnect")
@@ -263,8 +268,9 @@ def message(data):
                 "name": name,
                 "message": message,
             }
-            rooms[room]["messages"].append(message_data)
             time.sleep(0.5)
+            rooms[room]["messages"].append(message_data)
+
             emit("message", message_data, room=room)
 
 

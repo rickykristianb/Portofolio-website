@@ -43,7 +43,9 @@
             {{ form.company_name.label(class_="form_label") }}<br>{{ form.company_name(class_="form_field", id="company_name_field")}}<br>
             {{ form.company_email.label(class_="form_label") }}<br> {{ form.company_email(class_="form_field", id="company_email_field") }}<br>
             {{ form.message.label(class_="form_label") }}<br> {{ form.message(class_="textarea-form form_field", id="message_field")}}<br>
-            {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
+            <button type="submit" class="btn btn-outline-dark send_message_button" id="submit_button">
+              Send Message
+            </button>
           </form>
           {% else %}
           <form method="post" id="send_message_form_project_details">
@@ -51,85 +53,15 @@
             {{ form.company_name.label(class_="form_label") }}<br>{{ form.company_name(class_="form_field", id="company_name_field2" )}}<br>
             {{ form.company_email.label(class_="form_label") }}<br> {{ form.company_email(class_="form_field", id="company_email_field2") }}<br>
             {{ form.message.label(class_="form_label") }}<br> {{ form.message(class_="textarea-form form_field", id="message_field2")}}<br>
-            {{ form.submit(class_="btn btn-outline-dark send_message_button") }}
+            <button type="submit" class="btn btn-outline-dark send_message_button" id="submit_button_project_details_page">
+              Send Message
+            </button>
           </form>
           {% endif %}
         </div>
       </div>
 
     </section>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-          crossorigin="anonymous"></script>
-    <script type="text/javascript">
-    $(document).on('submit','#send_message_form', function(e)
-                   {
-      console.log('hello');
-      e.preventDefault();
-      var formData = {
-        company_name: $("#company_name_field").val(),
-        company_email: $("#company_email_field").val(),
-        message: $("#message_field").val()
-      };
-      $.ajax({
-        type:'POST',
-        url:'/',
-        data: formData,
-        success:function(data)
-        {
-          var category = data.category;
-          var message = data.message;
-
-          $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
-          $(".flash-message").removeClass("alert-success alert-danger");
-
-          if (category === "success") {
-          $('#send_message_form')[0].reset();
-            $(".flash-message").addClass("alert-success");
-          } else if (category === "error") {
-            $(".flash-message").addClass("alert-danger");
-          }
-
-          $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
-        }
-      })
-    });
-    </script>
-    <script type="text/javascript">
-    $(document).on('submit','#send_message_form_project_details', function(e)
-                   {
-      console.log('hello');
-      e.preventDefault();
-      var formData = {
-        company_name: $("#company_name_field2").val(),
-        company_email: $("#company_email_field2").val(),
-        message: $("#message_field2").val()
-      };
-      $.ajax({
-        type:'POST',
-        url:'/',
-        data: formData,
-        success:function(data)
-        {
-          var category = data.category;
-          var message = data.message;
-
-          $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
-          $(".flash-message").removeClass("alert-success alert-danger");
-
-          if (category === "success") {
-          $('#send_message_form_project_details')[0].reset();
-            $(".flash-message").addClass("alert-success");
-          } else if (category === "error") {
-            $(".flash-message").addClass("alert-danger");
-          }
-
-          $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
-        }
-      })
-    });
-  </script>
 
     <section id="footer-section" class="footer">
       <div class="footer text-center">
@@ -138,9 +70,10 @@
         </p>
       </div>
       <div class="chat">
-        <a>
-          <button type="button" class="chat-button">Chat With Me</button>
+        <a class="chat-button">
+          <i class="fa-solid fa-headset fa-shake fa-2xl"></i>
         </a>
+
       </div>
     <div class="chat-container" id="chatContainer" style="display: none;">
     <div class="chat-header">
@@ -227,6 +160,32 @@
               `;
               messages.innerHTML += content;
             });
+
+            socketio.on("error", (error) => {
+              console.error("Websocket error:", error);
+              const messages = document.getElementById("messages");
+
+              const errorContent = `
+                <div class="text">
+                  <span class="error-message">${error.error_websocket_message}</span>
+                </div>
+              `;
+              messages.innerHTML += errorContent;
+
+              $.ajax({
+                url: "http://192.168.100.6:5000/api/chat-box",
+                type: "POST",
+                contentType: application/JSON,
+                data: JSON.stringify({'error': error}),
+                success: function (response) {
+                  console.log("Error notification sent to Python backend:", response);
+                },
+                error: function (error) {
+                  console.log("Failed to send error notification to Python backend:", error);
+                }
+              });
+            });
+
           }
         },
         error: function (error) {
@@ -234,7 +193,6 @@
         }
       });
     }
-
     // Add event listener for "Send" button
     document.getElementById("send-btn").addEventListener("click", sendMessage);
 
@@ -267,6 +225,114 @@
         closeChatButton.addEventListener("click", toggleChatContainer);
 
       </script>
+      <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+
+      <!--Flash message for sending email-->
+      <script type="text/javascript">
+      $(document).on('submit','#send_message_form', function(e)
+                     {
+        console.log('hello');
+        e.preventDefault();
+
+        $('#submit_button').text('');
+        $('#submit_button').prop('disabled', true);
+
+        // Add fixed dimensions to ensure a consistent button size
+        const buttonWidth = $('#submit_button').outerWidth();
+        const buttonHeight = $('#submit_button').outerHeight();
+
+        $('#submit_button').html(`<div class='inside-send-button'>Sending</div>
+            <div class="loadingio-spinner-ellipsis-9bjzhgpuh39"><div class="ldio-hgg29vfqb7">
+            <div></div><div></div><div></div><div></div><div></div>
+            </div></div>
+        `);
+
+        var formData = {
+          company_name: $("#company_name_field").val(),
+          company_email: $("#company_email_field").val(),
+          message: $("#message_field").val()
+        };
+        $.ajax({
+          type:'POST',
+          url:'/',
+          data: formData,
+          success:function(data)
+          {
+            var category = data.category;
+            var message = data.message;
+
+            $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+            $(".flash-message").removeClass("alert-success alert-danger");
+
+            if (category === "success") {
+            $('#send_message_form')[0].reset();
+              $(".flash-message").addClass("alert-success");
+            } else if (category === "error") {
+              $(".flash-message").addClass("alert-danger");
+            }
+
+            $('#submit_button').prop('disabled', false); // Enable the button
+            $('#submit_button').html('Send Message'); // Restore the button text
+
+
+            $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
+          }
+        })
+      });
+      </script>
+      <script type="text/javascript">
+      $(document).on('submit','#send_message_form_project_details', function(e)
+                     {
+        console.log('hello');
+        e.preventDefault();
+
+        $('#submit_button_project_details_page').text('');
+        $('#submit_button_project_details_page').prop('disabled', true);
+
+        // Add fixed dimensions to ensure a consistent button size
+        const buttonWidth = $('#submit_button_project_details_page').outerWidth();
+        const buttonHeight = $('#submit_button_project_details_page').outerHeight();
+
+        $('#submit_button_project_details_page').html(`<div class='inside-send-button'>Sending</div>
+            <div class="loadingio-spinner-ellipsis-9bjzhgpuh39"><div class="ldio-hgg29vfqb7">
+            <div></div><div></div><div></div><div></div><div></div>
+            </div></div>
+        `);
+
+        var formData = {
+          company_name: $("#company_name_field2").val(),
+          company_email: $("#company_email_field2").val(),
+          message: $("#message_field2").val()
+        };
+        $.ajax({
+          type:'POST',
+          url:'/',
+          data: formData,
+          success:function(data)
+          {
+            var category = data.category;
+            var message = data.message;
+
+            $(".flash-message").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>' + message);
+            $(".flash-message").removeClass("alert-success alert-danger");
+
+            if (category === "success") {
+            $('#send_message_form_project_details')[0].reset();
+              $(".flash-message").addClass("alert-success");
+            } else if (category === "error") {
+              $(".flash-message").addClass("alert-danger");
+            }
+
+            $('#submit_button_project_details_page').prop('disabled', false); // Enable the button
+            $('#submit_button_project_details_page').html('Send Message'); // Restore the button text
+
+            $(".flash-message").fadeIn(500).delay(3000).fadeOut(500);
+          }
+        })
+      });
+    </script>
     </section>
   </body>
 </html>
