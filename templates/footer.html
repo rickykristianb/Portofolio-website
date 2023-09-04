@@ -73,30 +73,31 @@
         <a class="chat-button">
           <i class="fa-solid fa-headset fa-shake fa-2xl"></i>
         </a>
-
       </div>
-    <div class="chat-container" id="chatContainer" style="display: none;">
-    <div class="chat-header">
-      <div class="chat-header-title">
-        <span>Messages</span>
+    <div class="chat-container" id="chatContainer" >
+      <div class="chat-header" id="chat-header">
+        <div class="chat-header-title">
+          <span>Messages</span>
+        </div>
+        <div class="chat-header-close-button">
+          <span class="close-chat" id="closeChat"><i class="fa-solid fa-xmark"></i></span>
+        </div>
       </div>
-      <div class="chat-header-close-button">
-        <span class="close-chat" id="closeChat"><i class="fa-solid fa-xmark"></i></span>
+      <div class="user-chat-input-container" id="user-chat-input-container">
+        <div class="user-chat-input">
+          <input type="text" placeholder="Name" name="user-chat-name" id="user-chat-name"><br>
+          <a><button type="submit" class="btn btn-outline-dark btn-lg mx-auto" id="startChatButton" name="start-chating" onclick="sendData()">Start Chatting</button></a>
+        </div>
+        <div class="flash-message-chat-box alert alert-dismissible fade-in"></div>
       </div>
-    </div>
-    <div class="user-chat-input-container" id="user-chat-input-container">
-      <div class="user-chat-input">
-        <input type="text" placeholder="Name" name="user-chat-name" id="user-chat-name"><br>
-        <a><button type="submit" class="btn btn-outline-dark btn-lg mx-auto" id="startChatButton" name="start-chating" onclick="sendData()">Start Chatting</button></a>
+      <div class="messages-container" style="display: none;">
+        <div class="messages" id="messages"></div>
+        <div class="input">
+          <input type="text" rows="3" placeholder="Messages" name="front-message" id="front-message" class="message" onkeypress="handleKeyPress(event)">
+          <button type="button" class="send-button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
+        </div>
       </div>
-      <div class="flash-message-chat-box alert alert-dismissible fade-in"></div>
-    </div>
-    <div class="messages-container" style="display: none;">
-      <div class="messages" id="messages"></div>
-      <div class="input">
-        <input type="text" rows="3" placeholder="Messages" name="front-message" id="front-message" class="message" onkeypress="handleKeyPress(event)">
-        <button type="button" class="send-button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
-      </div>
+      <span class="chat-version">v.1.0.1</span>
     </div>
     <script>
     function handleKeyPress(event) {
@@ -108,8 +109,10 @@
   </script>
     <script>
     var socketio; // Declare the socketio variable in the global scope
+    const changeHeaderMargin = document.getElementById('chat-header');
 
     function sendData() {   // Send data from chat box to api chat-box
+
       var name = document.getElementById("user-chat-name").value;
       $.ajax({
         url: "http://192.168.100.6:5000/api/chat-box",
@@ -126,7 +129,8 @@
             var userChatInput = document.getElementById("user-chat-input-container")
             if (messagesContainer.style.display === 'none') {
               messagesContainer.style.display = 'block';
-              userChatInput.style.display = 'none'
+              userChatInput.style.display = 'none';
+              changeHeaderMargin.style.marginBottom = '0%';   // Change the header margin to 0% after clicking the start chatting button
             } else {
               messagesContainer.style.display = 'none';
             }
@@ -203,14 +207,15 @@
       message.value = "";
     };
   </script>
-  </div>
+
 
       <script>
         // Function to toggle the chat container
+        chatContainer.style.display = "none";
         function toggleChatContainer() {
             var chatContainer = document.getElementById("chatContainer");
             if (chatContainer.style.display === "none") {
-                chatContainer.style.display = "block";
+                chatContainer.style.display = "flex";
             } else {
                 chatContainer.style.display = "none";
             }
