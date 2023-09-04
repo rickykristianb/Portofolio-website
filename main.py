@@ -153,7 +153,7 @@ def homepage():
             return jsonify(send_email_response)
         else:
             return
-        
+
     return render_template("index.html", form=message_form, form_for=form_for, projects=all_projects[:8])
 
 
